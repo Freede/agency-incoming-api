@@ -8,7 +8,8 @@ paths:
   /registration:
     post:
       summary: Register consumer
-      tags: []
+      tags:
+        - Registration
       responses:
         '200':
           description: OK
@@ -21,6 +22,22 @@ paths:
         '401':
           description: Unauthorized
       operationId: post-registration
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
       description: Freede will submit this POST request when a consumer is attempting to register with the agency. Agency may perform their own validation checks and return a response.
       requestBody:
         content:
@@ -58,7 +75,8 @@ paths:
   '/account/{accountNum}':
     get:
       summary: Get account details
-      tags: []
+      tags:
+        - Accounts
       responses:
         '200':
           description: OK
@@ -69,10 +87,23 @@ paths:
               examples: {}
         '204':
           description: No Content
-        '401':
-          description: Unauthorized
       operationId: get-account
-      parameters: []
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
       description: Endpoint to get the account details from the agency
     parameters:
       - schema:
@@ -84,11 +115,28 @@ paths:
   /forms:
     post:
       summary: Consumer submitted form
-      tags: []
+      tags:
+        - Forms
       responses:
         '200':
           description: OK
       operationId: post-forms
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
       requestBody:
         content:
           application/json:
@@ -116,11 +164,28 @@ paths:
         required: true
     put:
       summary: Update consumer demographics
-      tags: []
+      tags:
+        - Consumers
       responses:
         '200':
           description: OK
       operationId: put-consumer-consumerRef
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
       requestBody:
         content:
           application/json:
@@ -130,10 +195,28 @@ paths:
     delete:
       summary: Deregister consumer
       operationId: delete-consumer-consumerRef
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
       responses:
         '200':
           description: OK
       description: Endpoint to deregister consumer from Freede
+      tags:
+        - Consumers
   '/consumer/{consumerRef}/optins':
     parameters:
       - schema:
@@ -144,11 +227,28 @@ paths:
         description: Agency consumer reference
     put:
       summary: Update consumer optins
-      tags: []
+      tags:
+        - Consumers
       responses:
         '200':
           description: OK
       operationId: put-consumer-consumerRef-optins
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
       requestBody:
         content:
           application/json:
@@ -164,11 +264,28 @@ paths:
         required: true
     post:
       summary: Consumer conversation
-      tags: []
+      tags:
+        - Consumers
       responses:
         '200':
           description: OK
       operationId: post-consumer-consumerRef-conversation
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
       requestBody:
         content:
           application/json:
@@ -177,23 +294,9 @@ paths:
       description: Endpoint to receive notice of consumer conversation. Can use Id to retrieve conversation details from Agency API
 components:
   schemas: {}
-  securitySchemes:
-    Freede-Verification-Token:
-      type: apiKey
-      in: header
-      name: Freede-Verification-Token
-      description: Salt token to be used with agency API key
-    Freede-Version:
-      type: apiKey
-      in: header
-      name: Freede-Version
-      description: Agency Incoming API Version
-    Freede-Verification-Key:
-      name: Freede-Verification-Key
-      type: apiKey
-      in: header
-      description: API Verification Key (SHA256)
-security:
-  - Freede-Verification-Token: []
-  - Freede-Version: []
-  - Freede-Verification-Key: []
+  securitySchemes: {}
+tags:
+  - name: Accounts
+  - name: Consumers
+  - name: Forms
+  - name: Registration

@@ -1,0 +1,17 @@
+{
+  "name": "agency-incoming-api",
+  "version": "1.0.0",
+  "description": "Freede Agency Incoming API Spec",
+  "main": "index.js",
+  "repository": "https://github.com/Freede/agency-incoming-api.git",
+  "author": "Freede <tech@freede.co>",
+  "license": "MIT",
+  "dependencies": {
+    "redoc-cli": "^0.10.2",
+    "widdershins": "^4.0.1"
+  },
+  "scripts": {
+    "build": "redoc-cli serve ./reference/Agency-Incoming-API.v1.yaml",
+    "run": "redoc-cli bundle ./reference/Agency-Incoming-API.v1.yaml"
+  }
+}
