@@ -296,9 +296,6 @@ paths:
             schema:
               $ref: ../models/Conversation.v1.yaml
       description: Endpoint to receive notice of consumer conversation. Can use Id to retrieve conversation details from Agency API
-components:
-  schemas: {}
-  securitySchemes: {}
 tags:
   - name: Accounts
   - name: Consumers
