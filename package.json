@@ -7,11 +7,13 @@
   "author": "Freede <tech@freede.co>",
   "license": "MIT",
   "dependencies": {
-    "redoc-cli": "^0.10.2",
+    "speccy": "^0.11.0",
     "widdershins": "^4.0.1"
   },
   "scripts": {
-    "build": "redoc-cli bundle ./reference/Agency-Incoming-API.v1.yaml --output index.html",
-    "run": "redoc-cli serve ./reference/Agency-Incoming-API.v1.yaml"
+    "combine": "speccy resolve ./reference/Agency-Incoming-API.v1.yaml -o Agency-Incoming-API.v1.yaml",
+    "buildspec": "npx widdershins ./reference/Agency-Incoming-API.v1.yaml --outfile ./source/index.html.md --user_templates ./source/templates",
+    "serve": "docker run --rm --name slate -p 4567:4567 -v $(pwd)/source:/srv/slate/source slatedocs/slate serve",
+    "build": "docker run --rm --name slate -v $(pwd)/docs:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate"
   }
 }
