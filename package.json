@@ -12,8 +12,9 @@
   },
   "scripts": {
     "combine": "speccy resolve ./reference/Agency-Incoming-API.v1.yaml -o Agency-Incoming-API.v1.yaml",
-    "buildspec": "npx widdershins ./reference/Agency-Incoming-API.v1.yaml --outfile ./source/index.html.md --user_templates ./source/templates",
+    "buildspec": "npx widdershins Agency-Incoming-API.v1.yaml --outfile ./source/index.html.md --user_templates ./source/templates",
     "serve": "docker run --rm --name slate -p 4567:4567 -v $(pwd)/source:/srv/slate/source slatedocs/slate serve",
-    "build": "docker run --rm --name slate -v $(pwd)/docs:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate"
+    "build": "docker run --rm --name slate -v $(pwd)/docs:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate",
+    "buildall": "yarn combine && yarn buildspec && yarn build"
   }
 }

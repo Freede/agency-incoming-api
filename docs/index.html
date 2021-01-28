@@ -373,7 +373,7 @@
 
 <p>API spec for agencies to process incoming requests from Freede.</p>
 
-<p>Base URLs:</p>
+<p><a href="https://raw.githubusercontent.com/Freede/agency-incoming-api/master/Agency-Incoming-API.v1.yaml" target="_blank">Download OpenAPI v3 YAML</a></p>
 
 <h1 id="agency-incoming-api-accounts">Accounts</h1>
 <h2 id='get-account-details'>Get account details</h2>
@@ -580,7 +580,7 @@ Freede-Verification-Token: string
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>OK</td>
-<td>None</td>
+<td>Inline</td>
 </tr>
 <tr>
 <td>204</td>
@@ -591,6 +591,231 @@ Freede-Verification-Token: string
 </tbody></table>
 
 <h3 id="get-account-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» ref</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Agency consumer reference number</td>
+</tr>
+<tr>
+<td>» desc</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Account description</td>
+</tr>
+<tr>
+<td>» status_reason</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Status reason to display to consumer</td>
+</tr>
+<tr>
+<td>» status</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Account status</td>
+</tr>
+<tr>
+<td>» balance_current</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Current total balance</td>
+</tr>
+<tr>
+<td>» balance_start</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Starting balance</td>
+</tr>
+<tr>
+<td>» balance_buckets</td>
+<td>[object]</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Bucket name to display</td>
+</tr>
+<tr>
+<td>»» balance_current</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Bucket current balance</td>
+</tr>
+<tr>
+<td>»» balance_start</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Bucket starting balance</td>
+</tr>
+<tr>
+<td>»» type</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Bucket type</td>
+</tr>
+<tr>
+<td>» agency</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» ref</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Agency account reference code</td>
+</tr>
+<tr>
+<td>»» last_payment_amt</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Agency last payment amount</td>
+</tr>
+<tr>
+<td>»» last_activity</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>Agency last activity</td>
+</tr>
+<tr>
+<td>»» last_payment_date</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>Agency last payment date</td>
+</tr>
+<tr>
+<td>» creditor</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» ref</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor account reference code</td>
+</tr>
+<tr>
+<td>»» last_payment_amt</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor last payment amount</td>
+</tr>
+<tr>
+<td>»» last_activity</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor last payment activity</td>
+</tr>
+<tr>
+<td>»» last_payment_date</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor last payment date</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor name</td>
+</tr>
+<tr>
+<td>» consumer</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» ref</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Agency consumer reference</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>active</td>
+</tr>
+<tr>
+<td>status</td>
+<td>paid_in_full</td>
+</tr>
+<tr>
+<td>status</td>
+<td>paid_settlement</td>
+</tr>
+<tr>
+<td>status</td>
+<td>disputed</td>
+</tr>
+<tr>
+<td>status</td>
+<td>closed</td>
+</tr>
+<tr>
+<td>type</td>
+<td>principal</td>
+</tr>
+<tr>
+<td>type</td>
+<td>interest</td>
+</tr>
+<tr>
+<td>type</td>
+<td>fees</td>
+</tr>
+<tr>
+<td>type</td>
+<td>other</td>
+</tr>
+</tbody></table>
 
 <aside class="success">
 This operation does not require authentication
@@ -618,7 +843,17 @@ Freede-Verification-Key: string
 Freede-API-Version: string
 Freede-Verification-Token: string
 
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">false</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
+  "first": "string",
+  "last": "string",
+  "address": "string",
+  "address2": "string",
+  "city": "string",
+  "state": "string",
+  "postal": "string",
+  "email": "string",
+  "phone": "string"
+}</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
   <span class="dl">'</span><span class="s1">Freede-Verification-Key</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">string</span><span class="dl">'</span><span class="p">,</span>
@@ -746,7 +981,17 @@ Freede-Verification-Token: string
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="kc">false</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"address2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"postal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="put-consumer-consumerref-parameters">Parameters</h3>
 
@@ -779,6 +1024,83 @@ Freede-Verification-Token: string
 <td>string</td>
 <td>false</td>
 <td>Token Salt</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» first</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» last</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» address</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» address2</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» city</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» state</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» postal</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» email</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» phone</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» ref</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
 </tr>
 <tr>
 <td>consumerRef</td>
@@ -1031,7 +1353,12 @@ Freede-Verification-Key: string
 Freede-API-Version: string
 Freede-Verification-Token: string
 
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">false</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
+  "sms": true,
+  "phone": true,
+  "email": true,
+  "push": true
+}</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
   <span class="dl">'</span><span class="s1">Freede-Verification-Key</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">string</span><span class="dl">'</span><span class="p">,</span>
@@ -1159,7 +1486,12 @@ Freede-Verification-Token: string
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="kc">false</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"sms"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"push"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="put-consumer-consumerref-optins-parameters">Parameters</h3>
 
@@ -1192,6 +1524,41 @@ Freede-Verification-Token: string
 <td>string</td>
 <td>false</td>
 <td>Token Salt</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» sms</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» phone</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» email</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» push</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
 </tr>
 <tr>
 <td>consumerRef</td>
@@ -1244,7 +1611,11 @@ Freede-Verification-Key: string
 Freede-API-Version: string
 Freede-Verification-Token: string
 
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">false</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
+  "type": "chat",
+  "when": "2019-08-24T14:15:22Z",
+  "id": "string"
+}</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
   <span class="dl">'</span><span class="s1">Freede-Verification-Key</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">string</span><span class="dl">'</span><span class="p">,</span>
@@ -1372,7 +1743,11 @@ Freede-Verification-Token: string
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="kc">false</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"chat"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="post-consumer-consumerref-conversation-parameters">Parameters</h3>
 
@@ -1407,11 +1782,67 @@ Freede-Verification-Token: string
 <td>Token Salt</td>
 </tr>
 <tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» type</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Type of conversation</td>
+</tr>
+<tr>
+<td>» when</td>
+<td>body</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>When the conversation happened</td>
+</tr>
+<tr>
+<td>» id</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Conversation Id</td>
+</tr>
+<tr>
 <td>consumerRef</td>
 <td>path</td>
 <td>string</td>
 <td>true</td>
 <td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-2'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» type</td>
+<td>chat</td>
+</tr>
+<tr>
+<td>» type</td>
+<td>phone</td>
+</tr>
+<tr>
+<td>» type</td>
+<td>email</td>
+</tr>
+<tr>
+<td>» type</td>
+<td>sms</td>
+</tr>
+<tr>
+<td>» type</td>
+<td>push</td>
 </tr>
 </tbody></table>
 
@@ -1461,7 +1892,25 @@ Freede-Verification-Token: string
 
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
   "type": "dispute",
-  "form": null
+  "form": {
+    "amount": 0,
+    "reason": "string",
+    "bankruptcy": {
+      "chapter": "string",
+      "filing_date": "string",
+      "discharge_date": "string"
+    },
+    "attorney": {
+      "name": "string",
+      "lawfirm": "string",
+      "phone": "string",
+      "fax": "string",
+      "email": "string"
+    },
+    "accounts": [
+      "string"
+    ]
+  }
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
@@ -1592,7 +2041,25 @@ Freede-Verification-Token: string
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dispute"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bankruptcy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"chapter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filing_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"discharge_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"attorney"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lawfirm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="post-forms-parameters">Parameters</h3>
@@ -1651,26 +2118,145 @@ Freede-Verification-Token: string
 <tr>
 <td>»» <em>anonymous</em></td>
 <td>body</td>
-<td>any</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»» amount</td>
+<td>body</td>
+<td>number</td>
+<td>false</td>
+<td>Amount in dispute.</td>
+</tr>
+<tr>
+<td>»»» reason</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Dispute reason</td>
+</tr>
+<tr>
+<td>»»» bankruptcy</td>
+<td>body</td>
+<td><a href="#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/bankruptcy">#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/bankruptcy</a></td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»»» chapter</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»»» filing_date</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»»» discharge_date</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»» attorney</td>
+<td>body</td>
+<td><a href="#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/attorney">#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney</a></td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»»» name</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»»» lawfirm</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»»» phone</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»»» fax</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»»» email</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»» accounts</td>
+<td>body</td>
+<td>[string]</td>
+<td>false</td>
+<td>Agency reference numbers for accounts disputed.</td>
+</tr>
+<tr>
+<td>»» <em>anonymous</em></td>
+<td>body</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»» reason</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»» attorney</td>
+<td>body</td>
+<td><a href="#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/attorney">#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney</a></td>
 <td>false</td>
 <td>none</td>
 </tr>
 <tr>
 <td>»» <em>anonymous</em></td>
 <td>body</td>
-<td>any</td>
+<td>object</td>
 <td>false</td>
 <td>none</td>
 </tr>
 <tr>
-<td>»» <em>anonymous</em></td>
+<td>»»» bankruptcy</td>
 <td>body</td>
-<td>any</td>
+<td><a href="#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/bankruptcy">#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/bankruptcy</a></td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»» attorney</td>
+<td>body</td>
+<td><a href="#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/attorney">#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney</a></td>
 <td>false</td>
 <td>none</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values'>Enumerated Values</h4>
+<h4 id='enumerated-values-3'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2018,7 +2604,40 @@ Freede-Verification-Token: string
 
 <p>200 Response</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[]</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"desc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"balance_current"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"balance_start"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"balance_buckets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"balance_current"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"balance_start"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"principal"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"agency"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_payment_amt"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_activity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"creditor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_payment_amt"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_activity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"consumer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <h3 id="post-registration-responses">Responses</h3>
 
@@ -2058,11 +2677,223 @@ Freede-Verification-Token: string
 </tr>
 </thead><tbody>
 <tr>
-<td>» <em>anonymous</em></td>
-<td>any</td>
+<td><em>anonymous</em></td>
+<td>[<a href="#schema#/paths/~1registration/post/responses/200/content/application~1json/schema/items">#/paths/~1registration/post/responses/200/content/application~1json/schema/items</a>]</td>
 <td>false</td>
 <td>none</td>
 <td>none</td>
+</tr>
+<tr>
+<td>» ref</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Agency consumer reference number</td>
+</tr>
+<tr>
+<td>» desc</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Account description</td>
+</tr>
+<tr>
+<td>» status_reason</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Status reason to display to consumer</td>
+</tr>
+<tr>
+<td>» status</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Account status</td>
+</tr>
+<tr>
+<td>» balance_current</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Current total balance</td>
+</tr>
+<tr>
+<td>» balance_start</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Starting balance</td>
+</tr>
+<tr>
+<td>» balance_buckets</td>
+<td>[object]</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Bucket name to display</td>
+</tr>
+<tr>
+<td>»» balance_current</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Bucket current balance</td>
+</tr>
+<tr>
+<td>»» balance_start</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Bucket starting balance</td>
+</tr>
+<tr>
+<td>»» type</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Bucket type</td>
+</tr>
+<tr>
+<td>» agency</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» ref</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Agency account reference code</td>
+</tr>
+<tr>
+<td>»» last_payment_amt</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Agency last payment amount</td>
+</tr>
+<tr>
+<td>»» last_activity</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>Agency last activity</td>
+</tr>
+<tr>
+<td>»» last_payment_date</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>Agency last payment date</td>
+</tr>
+<tr>
+<td>» creditor</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» ref</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor account reference code</td>
+</tr>
+<tr>
+<td>»» last_payment_amt</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor last payment amount</td>
+</tr>
+<tr>
+<td>»» last_activity</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor last payment activity</td>
+</tr>
+<tr>
+<td>»» last_payment_date</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor last payment date</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Creditor name</td>
+</tr>
+<tr>
+<td>» consumer</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» ref</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Agency consumer reference</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-4'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>active</td>
+</tr>
+<tr>
+<td>status</td>
+<td>paid_in_full</td>
+</tr>
+<tr>
+<td>status</td>
+<td>paid_settlement</td>
+</tr>
+<tr>
+<td>status</td>
+<td>disputed</td>
+</tr>
+<tr>
+<td>status</td>
+<td>closed</td>
+</tr>
+<tr>
+<td>type</td>
+<td>principal</td>
+</tr>
+<tr>
+<td>type</td>
+<td>interest</td>
+</tr>
+<tr>
+<td>type</td>
+<td>fees</td>
+</tr>
+<tr>
+<td>type</td>
+<td>other</td>
 </tr>
 </tbody></table>
 

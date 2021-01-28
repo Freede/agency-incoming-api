@@ -25,7 +25,7 @@ headingLevel: 2
 
 API spec for agencies to process incoming requests from Freede.
 
-Base URLs:
+<a href="https://raw.githubusercontent.com/Freede/agency-incoming-api/master/Agency-Incoming-API.v1.yaml" target="_blank">Download OpenAPI v3 YAML</a>
 
 <h1 id="agency-incoming-api-accounts">Accounts</h1>
 
@@ -212,10 +212,53 @@ Endpoint to get the account details from the agency
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|None|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 |204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|No Content|None|
 
 <h3 id="get-account-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» ref|string|false|none|Agency consumer reference number|
+|» desc|string|false|none|Account description|
+|» status_reason|string|false|none|Status reason to display to consumer|
+|» status|string|false|none|Account status|
+|» balance_current|number|false|none|Current total balance|
+|» balance_start|number|false|none|Starting balance|
+|» balance_buckets|[object]|false|none|none|
+|»» name|string|false|none|Bucket name to display|
+|»» balance_current|number|false|none|Bucket current balance|
+|»» balance_start|number|false|none|Bucket starting balance|
+|»» type|string|false|none|Bucket type|
+|» agency|object|false|none|none|
+|»» ref|string|false|none|Agency account reference code|
+|»» last_payment_amt|number|false|none|Agency last payment amount|
+|»» last_activity|string(date-time)|false|none|Agency last activity|
+|»» last_payment_date|string(date-time)|false|none|Agency last payment date|
+|» creditor|object|false|none|none|
+|»» ref|string|false|none|Creditor account reference code|
+|»» last_payment_amt|number|false|none|Creditor last payment amount|
+|»» last_activity|string(date-time)|false|none|Creditor last payment activity|
+|»» last_payment_date|string(date-time)|false|none|Creditor last payment date|
+|»» name|string|false|none|Creditor name|
+|» consumer|object|false|none|none|
+|»» ref|string|false|none|Agency consumer reference|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|status|active|
+|status|paid_in_full|
+|status|paid_settlement|
+|status|disputed|
+|status|closed|
+|type|principal|
+|type|interest|
+|type|fees|
+|type|other|
 
 <aside class="success">
 This operation does not require authentication
@@ -251,7 +294,17 @@ Freede-Verification-Token: string
 ```
 
 ```javascript
-const inputBody = 'false';
+const inputBody = '{
+  "first": "string",
+  "last": "string",
+  "address": "string",
+  "address2": "string",
+  "city": "string",
+  "state": "string",
+  "postal": "string",
+  "email": "string",
+  "phone": "string"
+}';
 const headers = {
   'Content-Type':'application/json',
   'Freede-Verification-Key':'string',
@@ -395,7 +448,17 @@ Endpoint to receive updated consumer demographics
 > Body parameter
 
 ```json
-false
+{
+  "first": "string",
+  "last": "string",
+  "address": "string",
+  "address2": "string",
+  "city": "string",
+  "state": "string",
+  "postal": "string",
+  "email": "string",
+  "phone": "string"
+}
 ```
 
 <h3 id="put-consumer-consumerref-parameters">Parameters</h3>
@@ -405,6 +468,17 @@ false
 |Freede-Verification-Key|header|string|false|SHA256 Hash of Token and API key|
 |Freede-API-Version|header|string|false|Freede Agency Incoming API Version|
 |Freede-Verification-Token|header|string|false|Token Salt|
+|body|body|object|false|none|
+|» first|body|string|false|none|
+|» last|body|string|false|none|
+|» address|body|string|false|none|
+|» address2|body|string|false|none|
+|» city|body|string|false|none|
+|» state|body|string|false|none|
+|» postal|body|string|false|none|
+|» email|body|string|false|none|
+|» phone|body|string|false|none|
+|» ref|body|string|false|none|
 |consumerRef|path|string|true|none|
 
 <h3 id="put-consumer-consumerref-responses">Responses</h3>
@@ -625,7 +699,12 @@ Freede-Verification-Token: string
 ```
 
 ```javascript
-const inputBody = 'false';
+const inputBody = '{
+  "sms": true,
+  "phone": true,
+  "email": true,
+  "push": true
+}';
 const headers = {
   'Content-Type':'application/json',
   'Freede-Verification-Key':'string',
@@ -769,7 +848,12 @@ Endpoint to receive updated consumer optins
 > Body parameter
 
 ```json
-false
+{
+  "sms": true,
+  "phone": true,
+  "email": true,
+  "push": true
+}
 ```
 
 <h3 id="put-consumer-consumerref-optins-parameters">Parameters</h3>
@@ -779,6 +863,11 @@ false
 |Freede-Verification-Key|header|string|false|SHA256 Hash of Token and API key|
 |Freede-API-Version|header|string|false|Freede Agency Incoming API Version|
 |Freede-Verification-Token|header|string|false|Token Salt|
+|body|body|object|false|none|
+|» sms|body|boolean|false|none|
+|» phone|body|boolean|false|none|
+|» email|body|boolean|false|none|
+|» push|body|boolean|false|none|
 |consumerRef|path|string|true|Agency consumer reference|
 
 <h3 id="put-consumer-consumerref-optins-responses">Responses</h3>
@@ -819,7 +908,11 @@ Freede-Verification-Token: string
 ```
 
 ```javascript
-const inputBody = 'false';
+const inputBody = '{
+  "type": "chat",
+  "when": "2019-08-24T14:15:22Z",
+  "id": "string"
+}';
 const headers = {
   'Content-Type':'application/json',
   'Freede-Verification-Key':'string',
@@ -963,7 +1056,11 @@ Endpoint to receive notice of consumer conversation. Can use Id to retrieve conv
 > Body parameter
 
 ```json
-false
+{
+  "type": "chat",
+  "when": "2019-08-24T14:15:22Z",
+  "id": "string"
+}
 ```
 
 <h3 id="post-consumer-consumerref-conversation-parameters">Parameters</h3>
@@ -973,7 +1070,21 @@ false
 |Freede-Verification-Key|header|string|false|SHA256 Hash of Token and API key|
 |Freede-API-Version|header|string|false|Freede Agency Incoming API Version|
 |Freede-Verification-Token|header|string|false|Token Salt|
+|body|body|object|false|none|
+|» type|body|string|false|Type of conversation|
+|» when|body|string(date-time)|false|When the conversation happened|
+|» id|body|string|false|Conversation Id|
 |consumerRef|path|string|true|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|» type|chat|
+|» type|phone|
+|» type|email|
+|» type|sms|
+|» type|push|
 
 <h3 id="post-consumer-consumerref-conversation-responses">Responses</h3>
 
@@ -1017,7 +1128,25 @@ Freede-Verification-Token: string
 ```javascript
 const inputBody = '{
   "type": "dispute",
-  "form": null
+  "form": {
+    "amount": 0,
+    "reason": "string",
+    "bankruptcy": {
+      "chapter": "string",
+      "filing_date": "string",
+      "discharge_date": "string"
+    },
+    "attorney": {
+      "name": "string",
+      "lawfirm": "string",
+      "phone": "string",
+      "fax": "string",
+      "email": "string"
+    },
+    "accounts": [
+      "string"
+    ]
+  }
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -1164,7 +1293,25 @@ Endpoint to receive forms consumer has submitted
 ```json
 {
   "type": "dispute",
-  "form": null
+  "form": {
+    "amount": 0,
+    "reason": "string",
+    "bankruptcy": {
+      "chapter": "string",
+      "filing_date": "string",
+      "discharge_date": "string"
+    },
+    "attorney": {
+      "name": "string",
+      "lawfirm": "string",
+      "phone": "string",
+      "fax": "string",
+      "email": "string"
+    },
+    "accounts": [
+      "string"
+    ]
+  }
 }
 ```
 
@@ -1178,9 +1325,26 @@ Endpoint to receive forms consumer has submitted
 |body|body|object|false|none|
 |» type|body|string|false|none|
 |» form|body|any|false|none|
-|»» *anonymous*|body|any|false|none|
-|»» *anonymous*|body|any|false|none|
-|»» *anonymous*|body|any|false|none|
+|»» *anonymous*|body|object|false|none|
+|»»» amount|body|number|false|Amount in dispute.|
+|»»» reason|body|string|false|Dispute reason|
+|»»» bankruptcy|body|[#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/bankruptcy](#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/bankruptcy)|false|none|
+|»»»» chapter|body|string|false|none|
+|»»»» filing_date|body|string|false|none|
+|»»»» discharge_date|body|string|false|none|
+|»»» attorney|body|[#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney](#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/attorney)|false|none|
+|»»»» name|body|string|false|none|
+|»»»» lawfirm|body|string|false|none|
+|»»»» phone|body|string|false|none|
+|»»»» fax|body|string|false|none|
+|»»»» email|body|string|false|none|
+|»»» accounts|body|[string]|false|Agency reference numbers for accounts disputed.|
+|»» *anonymous*|body|object|false|none|
+|»»» reason|body|string|false|none|
+|»»» attorney|body|[#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney](#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/attorney)|false|none|
+|»» *anonymous*|body|object|false|none|
+|»»» bankruptcy|body|[#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/bankruptcy](#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/bankruptcy)|false|none|
+|»»» attorney|body|[#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney](#schema#/paths/~1forms/post/requestbody/content/application~1json/schema/properties/form/oneof/0/properties/attorney)|false|none|
 
 #### Enumerated Values
 
@@ -1432,7 +1596,40 @@ Freede will submit this POST request when a consumer is attempting to register w
 > 200 Response
 
 ```json
-[]
+[
+  {
+    "ref": "string",
+    "desc": "string",
+    "status_reason": "string",
+    "status": "active",
+    "balance_current": 0,
+    "balance_start": 0,
+    "balance_buckets": [
+      {
+        "name": "string",
+        "balance_current": 0,
+        "balance_start": 0,
+        "type": "principal"
+      }
+    ],
+    "agency": {
+      "ref": "string",
+      "last_payment_amt": 0,
+      "last_activity": "2019-08-24T14:15:22Z",
+      "last_payment_date": "2019-08-24T14:15:22Z"
+    },
+    "creditor": {
+      "ref": "string",
+      "last_payment_amt": 0,
+      "last_activity": "2019-08-24T14:15:22Z",
+      "last_payment_date": "2019-08-24T14:15:22Z",
+      "name": "string"
+    },
+    "consumer": {
+      "ref": "string"
+    }
+  }
+]
 ```
 
 <h3 id="post-registration-responses">Responses</h3>
@@ -1448,7 +1645,45 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» *anonymous*|any|false|none|none|
+|*anonymous*|[[#/paths/~1registration/post/responses/200/content/application~1json/schema/items](#schema#/paths/~1registration/post/responses/200/content/application~1json/schema/items)]|false|none|none|
+|» ref|string|false|none|Agency consumer reference number|
+|» desc|string|false|none|Account description|
+|» status_reason|string|false|none|Status reason to display to consumer|
+|» status|string|false|none|Account status|
+|» balance_current|number|false|none|Current total balance|
+|» balance_start|number|false|none|Starting balance|
+|» balance_buckets|[object]|false|none|none|
+|»» name|string|false|none|Bucket name to display|
+|»» balance_current|number|false|none|Bucket current balance|
+|»» balance_start|number|false|none|Bucket starting balance|
+|»» type|string|false|none|Bucket type|
+|» agency|object|false|none|none|
+|»» ref|string|false|none|Agency account reference code|
+|»» last_payment_amt|number|false|none|Agency last payment amount|
+|»» last_activity|string(date-time)|false|none|Agency last activity|
+|»» last_payment_date|string(date-time)|false|none|Agency last payment date|
+|» creditor|object|false|none|none|
+|»» ref|string|false|none|Creditor account reference code|
+|»» last_payment_amt|number|false|none|Creditor last payment amount|
+|»» last_activity|string(date-time)|false|none|Creditor last payment activity|
+|»» last_payment_date|string(date-time)|false|none|Creditor last payment date|
+|»» name|string|false|none|Creditor name|
+|» consumer|object|false|none|none|
+|»» ref|string|false|none|Agency consumer reference|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|status|active|
+|status|paid_in_full|
+|status|paid_settlement|
+|status|disputed|
+|status|closed|
+|type|principal|
+|type|interest|
+|type|fees|
+|type|other|
 
 <aside class="success">
 This operation does not require authentication
