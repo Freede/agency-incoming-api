@@ -1,0 +1,12 @@
+description: ''
+type: object
+properties:
+  chapter:
+    type: string
+    minLength: 1
+  filing_date:
+    type: string
+    minLength: 1
+  discharge_date:
+    type: string
+    minLength: 1

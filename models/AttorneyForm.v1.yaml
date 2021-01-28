@@ -1,0 +1,7 @@
+title: AttorneyForm
+type: object
+properties:
+  reason:
+    type: string
+  attorney:
+    $ref: ./Attorney.v1.yaml

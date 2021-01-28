@@ -1,0 +1,7 @@
+title: BankruptcyForm
+type: object
+properties:
+  bankruptcy:
+    $ref: ./Bankruptcy.v1.yaml
+  attorney:
+    $ref: ./Attorney.v1.yaml

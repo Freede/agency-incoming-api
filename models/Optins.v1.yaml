@@ -1,0 +1,11 @@
+title: Optins
+type: object
+properties:
+  sms:
+    type: boolean
+  phone:
+    type: boolean
+  email:
+    type: boolean
+  push:
+    type: boolean

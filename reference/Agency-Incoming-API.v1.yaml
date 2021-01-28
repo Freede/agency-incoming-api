@@ -1,0 +1,199 @@
+openapi: 3.0.0
+info:
+  title: Agency Incoming API
+  version: '1.0'
+  description: API spec for agencies to process incoming requests from Freede.
+servers: []
+paths:
+  /registration:
+    post:
+      summary: Register consumer
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ../models/Account.v1.yaml
+        '401':
+          description: Unauthorized
+      operationId: post-registration
+      description: Freede will submit this POST request when a consumer is attempting to register with the agency. Agency may perform their own validation checks and return a response.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first:
+                  type: string
+                last:
+                  type: string
+                address:
+                  type: string
+                address2:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                zip:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                regcode:
+                  type: string
+                verify:
+                  type: boolean
+              required:
+                - regcode
+                - verify
+        description: Consumer registration information
+  '/account/{accountNum}':
+    get:
+      summary: Get account details
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/Account.v1.yaml
+              examples: {}
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+      operationId: get-account
+      parameters: []
+      description: Endpoint to get the account details from the agency
+    parameters:
+      - schema:
+          type: string
+        name: accountNum
+        in: path
+        required: true
+        description: Agency account number
+  /forms:
+    post:
+      summary: Consumer submitted form
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: post-forms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - dispute
+                    - attorney
+                    - bankruptcy
+                form:
+                  oneOf:
+                    - $ref: ../models/Dispute-Form.v1.yaml
+                    - $ref: ../models/AttorneyForm.v1.yaml
+                    - $ref: ../models/BankruptcyForm.v1.yaml
+      description: Endpoint to receive forms consumer has submitted
+  '/consumer/{consumerRef}':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+    put:
+      summary: Update consumer demographics
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: put-consumer-consumerRef
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Consumer.v1.yaml
+      description: Endpoint to receive updated consumer demographics
+    delete:
+      summary: Deregister consumer
+      operationId: delete-consumer-consumerRef
+      responses:
+        '200':
+          description: OK
+      description: Endpoint to deregister consumer from Freede
+  '/consumer/{consumerRef}/optins':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+        description: Agency consumer reference
+    put:
+      summary: Update consumer optins
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: put-consumer-consumerRef-optins
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Optins.v1.yaml
+      description: Endpoint to receive updated consumer optins
+  '/consumer/{consumerRef}/conversation':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+    post:
+      summary: Consumer conversation
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: post-consumer-consumerRef-conversation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Conversation.v1.yaml
+      description: Endpoint to receive notice of consumer conversation. Can use Id to retrieve conversation details from Agency API
+components:
+  schemas: {}
+  securitySchemes:
+    Freede-Verification-Token:
+      type: apiKey
+      in: header
+      name: Freede-Verification-Token
+      description: Salt token to be used with agency API key
+    Freede-Version:
+      type: apiKey
+      in: header
+      name: Freede-Version
+      description: Agency Incoming API Version
+    Freede-Verification-Key:
+      name: Freede-Verification-Key
+      type: apiKey
+      in: header
+      description: API Verification Key (SHA256)
+security:
+  - Freede-Verification-Token: []
+  - Freede-Version: []
+  - Freede-Verification-Key: []

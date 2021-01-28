@@ -1,0 +1,106 @@
+description: ''
+type: object
+properties:
+  ref:
+    type: string
+    minLength: 1
+    description: Agency consumer reference number
+  desc:
+    type: string
+    minLength: 1
+    description: Account description
+  status_reason:
+    type: string
+    minLength: 1
+    description: Status reason to display to consumer
+  status:
+    type: string
+    enum:
+      - active
+      - paid_in_full
+      - paid_settlement
+      - disputed
+      - closed
+    description: Account status
+  balance_current:
+    type: number
+    description: Current total balance
+  balance_start:
+    type: number
+    description: Starting balance
+  balance_buckets:
+    type: array
+    uniqueItems: true
+    minItems: 1
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: Bucket name to display
+        balance_current:
+          type: number
+          description: Bucket current balance
+        balance_start:
+          type: number
+          description: Bucket starting balance
+        type:
+          type: string
+          minLength: 1
+          description: Bucket type
+          enum:
+            - principal
+            - interest
+            - fees
+            - other
+  agency:
+    type: object
+    properties:
+      ref:
+        type: string
+        minLength: 1
+        description: Agency account reference code
+      last_payment_amt:
+        type: number
+        description: Agency last payment amount
+      last_activity:
+        type: string
+        minLength: 1
+        format: date-time
+        description: Agency last activity
+      last_payment_date:
+        type: string
+        minLength: 1
+        format: date-time
+        description: Agency last payment date
+  creditor:
+    type: object
+    properties:
+      ref:
+        type: string
+        minLength: 1
+        description: Creditor account reference code
+      last_payment_amt:
+        type: number
+        description: Creditor last payment amount
+      last_activity:
+        type: string
+        minLength: 1
+        format: date-time
+        description: Creditor last payment activity
+      last_payment_date:
+        type: string
+        minLength: 1
+        format: date-time
+        description: Creditor last payment date
+      name:
+        type: string
+        minLength: 1
+        description: Creditor name
+  consumer:
+    type: object
+    properties:
+      ref:
+        type: string
+        description: Agency consumer reference

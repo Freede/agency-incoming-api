@@ -1,0 +1,20 @@
+title: Conversation
+type: object
+properties:
+  type:
+    type: string
+    enum:
+      - chat
+      - phone
+      - email
+      - sms
+      - push
+    description: Type of conversation
+  when:
+    type: string
+    format: date-time
+    description: When the conversation happened
+  id:
+    type: string
+    description: Conversation Id
+description: Consumer conversation model
