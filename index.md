@@ -4,7 +4,6 @@ language_tabs:
   - shell: Shell
   - http: HTTP
   - javascript: JavaScript
-  - ruby: Ruby
   - python: Python
   - php: PHP
   - java: Java
