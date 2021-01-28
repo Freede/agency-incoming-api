@@ -11,7 +11,7 @@
     "widdershins": "^4.0.1"
   },
   "scripts": {
-    "build": "redoc-cli serve ./reference/Agency-Incoming-API.v1.yaml",
-    "run": "redoc-cli bundle ./reference/Agency-Incoming-API.v1.yaml"
+    "build": "redoc-cli bundle ./reference/Agency-Incoming-API.v1.yaml --output index.html",
+    "run": "redoc-cli serve ./reference/Agency-Incoming-API.v1.yaml"
   }
 }

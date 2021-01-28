@@ -3,6 +3,10 @@ info:
   title: Agency Incoming API
   version: '1.0'
   description: API spec for agencies to process incoming requests from Freede.
+  x-logo:
+    url: "https://www.freede.co/logo.png"
+    backgroundColor: "#000000"
+    altText: "Freede logo"
 servers: []
 paths:
   /registration:
