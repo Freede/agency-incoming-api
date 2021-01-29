@@ -257,6 +257,21 @@ paths:
           application/json:
             schema:
               $ref: ../models/Optins.v1.yaml
+            examples:
+              Example:
+                value:
+                  sms:
+                    allowed: true
+                    default: false
+                  phone:
+                    allowed: true
+                    default: false
+                  email:
+                    allowed: true
+                    default: true
+                  push:
+                    allowed: true
+                    default: false
       description: Endpoint to receive updated consumer optins
   '/consumer/{consumerRef}/conversation':
     parameters:

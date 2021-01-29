@@ -188,14 +188,11 @@ paths:
                         default:
                           type: boolean
                     phone:
-                      $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema\
-                        /properties/optins/properties/sms"
+                      $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema/properties/optins/properties/sms"
                     email:
-                      $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema\
-                        /properties/optins/properties/sms"
+                      $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema/properties/optins/properties/sms"
                     push:
-                      $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema\
-                        /properties/optins/properties/sms"
+                      $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema/properties/optins/properties/sms"
               required:
                 - regcode
                 - verify
@@ -212,8 +209,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/paths/~1registration/post/responses/200/content/application~1json/sche\
-                  ma/items"
+                $ref: "#/paths/~1registration/post/responses/200/content/application~1json/schema/items"
               examples: {}
         "204":
           description: No Content
@@ -336,17 +332,14 @@ paths:
                         reason:
                           type: string
                         attorney:
-                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/proper\
-                            ties/form/oneOf/0/properties/attorney"
+                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney"
                     - title: BankruptcyForm
                       type: object
                       properties:
                         bankruptcy:
-                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/proper\
-                            ties/form/oneOf/0/properties/bankruptcy"
+                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/bankruptcy"
                         attorney:
-                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/proper\
-                            ties/form/oneOf/0/properties/attorney"
+                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney"
       description: Endpoint to receive forms consumer has submitted
   "/consumer/{consumerRef}":
     parameters:
@@ -479,8 +472,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema\
-                /properties/optins"
+              $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema/properties/optins"
+            examples:
+              Example:
+                value:
+                  sms:
+                    allowed: true
+                    default: false
+                  phone:
+                    allowed: true
+                    default: false
+                  email:
+                    allowed: true
+                    default: true
+                  push:
+                    allowed: true
+                    default: false
       description: Endpoint to receive updated consumer optins
   "/consumer/{consumerRef}/conversation":
     parameters:
