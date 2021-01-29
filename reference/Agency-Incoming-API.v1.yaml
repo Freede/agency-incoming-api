@@ -157,6 +157,18 @@ paths:
                     - $ref: '#/components/schemas/DisputeForm'
                     - $ref: '#/components/schemas/AttorneyForm'
                     - $ref: '#/components/schemas/BankruptcyForm'
+                task:
+                  type: array
+                  description: 'If provided, use this ID and type to submit back to the Agency API'
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      type:
+                        type: string
+                        enum:
+                          - proof_of_debt
       description: Endpoint to receive forms consumer has submitted
   '/consumer/{consumerRef}':
     parameters:
