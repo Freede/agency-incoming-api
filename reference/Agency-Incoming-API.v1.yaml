@@ -368,6 +368,11 @@ components:
               type:
                 type: string
                 minLength: 1
+                enum:
+                  - interest
+                  - principal
+                  - fees
+                  - other
             required:
               - name
               - balance_current
@@ -389,9 +394,6 @@ components:
               minLength: 1
           required:
             - ref
-            - last_payment_amt
-            - last_activity
-            - last_payment_date
         creditor:
           type: object
           properties:
@@ -411,9 +413,6 @@ components:
               minLength: 1
           required:
             - ref
-            - last_payment_amt
-            - last_activity
-            - last_payment_date
             - name
         consumer:
           type: object
@@ -463,10 +462,6 @@ components:
         discharge_date:
           type: string
           minLength: 1
-      required:
-        - chapter
-        - filing_date
-        - discharge_date
     BankruptcyForm:
       title: BankruptcyForm
       type: object
