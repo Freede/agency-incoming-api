@@ -1,7 +1,0 @@
-title: Optin
-type: object
-properties:
-  allowed:
-    type: boolean
-  default:
-    type: boolean

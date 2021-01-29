@@ -18,7 +18,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: ../models/Account.v1.yaml
+                  $ref: '#/components/schemas/Account'
         '401':
           description: Unauthorized
       operationId: post-registration
@@ -69,7 +69,7 @@ paths:
                 verify:
                   type: boolean
                 optins:
-                  $ref: ../models/Optins.v1.yaml
+                  $ref: '#/components/schemas/Optins'
               required:
                 - regcode
                 - verify
@@ -86,7 +86,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/Account.v1.yaml
+                $ref: '#/components/schemas/Account'
               examples: {}
         '204':
           description: No Content
@@ -154,9 +154,9 @@ paths:
                     - bankruptcy
                 form:
                   oneOf:
-                    - $ref: ../models/Dispute-Form.v1.yaml
-                    - $ref: ../models/AttorneyForm.v1.yaml
-                    - $ref: ../models/BankruptcyForm.v1.yaml
+                    - $ref: '#/components/schemas/DisputeForm'
+                    - $ref: '#/components/schemas/AttorneyForm'
+                    - $ref: '#/components/schemas/BankruptcyForm'
       description: Endpoint to receive forms consumer has submitted
   '/consumer/{consumerRef}':
     parameters:
@@ -193,7 +193,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../models/Consumer.v1.yaml
+              $ref: '#/components/schemas/Consumer'
       description: Endpoint to receive updated consumer demographics
     delete:
       summary: Deregister consumer
@@ -256,7 +256,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../models/Optins.v1.yaml
+              $ref: '#/components/schemas/Optins'
             examples:
               Example:
                 value:
@@ -315,3 +315,234 @@ tags:
   - name: Consumers
   - name: Forms
   - name: Registration
+components:
+  schemas:
+    Account:
+      description: ''
+      type: object
+      properties:
+        ref:
+          type: string
+          minLength: 1
+        desc:
+          type: string
+          minLength: 1
+        status_reason:
+          type: string
+          minLength: 1
+        status:
+          type: string
+          minLength: 1
+        balance_current:
+          type: number
+        balance_start:
+          type: number
+        balance_buckets:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+              balance_current:
+                type: number
+              balance_start:
+                type: number
+              type:
+                type: string
+                minLength: 1
+            required:
+              - name
+              - balance_current
+              - balance_start
+              - type
+        agency:
+          type: object
+          required:
+            - ref
+            - last_payment_amt
+            - last_activity
+            - last_payment_date
+          properties:
+            ref:
+              type: string
+              minLength: 1
+            last_payment_amt:
+              type: number
+            last_activity:
+              type: string
+              minLength: 1
+            last_payment_date:
+              type: string
+              minLength: 1
+        creditor:
+          type: object
+          required:
+            - ref
+            - last_payment_amt
+            - last_activity
+            - last_payment_date
+            - name
+          properties:
+            ref:
+              type: string
+              minLength: 1
+            last_payment_amt:
+              type: number
+            last_activity:
+              type: string
+              minLength: 1
+            last_payment_date:
+              type: string
+              minLength: 1
+            name:
+              type: string
+              minLength: 1
+        consumer:
+          type: object
+          required:
+            - ref
+          properties:
+            ref:
+              type: string
+              minLength: 1
+    Attorney:
+      description: ''
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        lawfirm:
+          type: string
+          minLength: 1
+        phone:
+          type: string
+          minLength: 1
+        fax:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+    AttorneyForm:
+      title: AttorneyForm
+      type: object
+      properties:
+        reason:
+          type: string
+        attorney:
+          $ref: '#/components/schemas/Attorney'
+    Bankruptcy:
+      description: ''
+      type: object
+      properties:
+        chapter:
+          type: string
+          minLength: 1
+        filing_date:
+          type: string
+          minLength: 1
+        discharge_date:
+          type: string
+          minLength: 1
+      required:
+        - chapter
+        - filing_date
+        - discharge_date
+    BankruptcyForm:
+      title: BankruptcyForm
+      type: object
+      properties:
+        bankruptcy:
+          $ref: '#/components/schemas/Bankruptcy'
+        attorney:
+          $ref: '#/components/schemas/Attorney'
+    Consumer:
+      description: ''
+      type: object
+      properties:
+        first:
+          type: string
+          minLength: 1
+        last:
+          type: string
+          minLength: 1
+        address:
+          type: string
+          minLength: 1
+        address2:
+          type: string
+          minLength: 1
+        city:
+          type: string
+          minLength: 1
+        state:
+          type: string
+          minLength: 1
+        postal:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+        phone:
+          type: string
+          minLength: 1
+        ref:
+          type: string
+          minLength: 1
+    Conversation:
+      description: ''
+      type: object
+      properties:
+        type:
+          type: string
+          minLength: 1
+        when:
+          type: string
+          minLength: 1
+        id:
+          type: string
+          minLength: 1
+    DisputeForm:
+      title: DisputeForm
+      type: object
+      properties:
+        amount:
+          type: number
+        reason:
+          type: string
+        bankruptcy:
+          $ref: '#/components/schemas/Bankruptcy'
+        attorney:
+          $ref: '#/components/schemas/Attorney'
+        accounts:
+          type:
+            - string
+            - array
+          items:
+            type: string
+    Optin:
+      title: Optin
+      type: object
+      properties:
+        allowed:
+          type: boolean
+        default:
+          type: boolean
+    Optins:
+      title: Optins
+      type: object
+      properties:
+        sms:
+          $ref: '#/components/schemas/Optin'
+        voice:
+          $ref: '#/components/schemas/Optin'
+        email:
+          $ref: '#/components/schemas/Optin'
+        push:
+          $ref: '#/components/schemas/Optin'
