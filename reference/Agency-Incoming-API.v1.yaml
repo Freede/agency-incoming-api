@@ -523,9 +523,7 @@ components:
         attorney:
           $ref: '#/components/schemas/Attorney'
         accounts:
-          type:
-            - string
-            - array
+          type: array
           items:
             type: string
     Optin:
