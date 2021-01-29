@@ -3,10 +3,6 @@ info:
   title: Agency Incoming API
   version: "1.0"
   description: API spec for agencies to process incoming requests from Freede.
-  x-logo:
-    url: https://www.freede.co/logo.png
-    backgroundColor: "#000000"
-    altText: Freede logo
 servers: []
 paths:
   /registration:
@@ -179,9 +175,31 @@ paths:
                   type: string
                 verify:
                   type: boolean
+                optins:
+                  title: Optins
+                  type: object
+                  properties:
+                    sms:
+                      title: Optin
+                      type: object
+                      properties:
+                        allowed:
+                          type: boolean
+                        default:
+                          type: boolean
+                    phone:
+                      $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema\
+                        /properties/optins/properties/sms"
+                    email:
+                      $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema\
+                        /properties/optins/properties/sms"
+                    push:
+                      $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema\
+                        /properties/optins/properties/sms"
               required:
                 - regcode
                 - verify
+            examples: {}
         description: Consumer registration information
   "/account/{accountNum}":
     get:
@@ -194,7 +212,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/paths/~1registration/post/responses/200/content/application~1json/schema/items"
+                $ref: "#/paths/~1registration/post/responses/200/content/application~1json/sche\
+                  ma/items"
               examples: {}
         "204":
           description: No Content
@@ -317,14 +336,17 @@ paths:
                         reason:
                           type: string
                         attorney:
-                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney"
+                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/proper\
+                            ties/form/oneOf/0/properties/attorney"
                     - title: BankruptcyForm
                       type: object
                       properties:
                         bankruptcy:
-                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/bankruptcy"
+                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/proper\
+                            ties/form/oneOf/0/properties/bankruptcy"
                         attorney:
-                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/properties/form/oneOf/0/properties/attorney"
+                          $ref: "#/paths/~1forms/post/requestBody/content/application~1json/schema/proper\
+                            ties/form/oneOf/0/properties/attorney"
       description: Endpoint to receive forms consumer has submitted
   "/consumer/{consumerRef}":
     parameters:
@@ -457,17 +479,8 @@ paths:
         content:
           application/json:
             schema:
-              title: Optins
-              type: object
-              properties:
-                sms:
-                  type: boolean
-                phone:
-                  type: boolean
-                email:
-                  type: boolean
-                push:
-                  type: boolean
+              $ref: "#/paths/~1registration/post/requestBody/content/application~1json/schema\
+                /properties/optins"
       description: Endpoint to receive updated consumer optins
   "/consumer/{consumerRef}/conversation":
     parameters:

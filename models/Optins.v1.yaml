@@ -2,10 +2,10 @@ title: Optins
 type: object
 properties:
   sms:
-    type: boolean
+    $ref: ./Optin.v1.yaml
   phone:
-    type: boolean
+    $ref: ./Optin.v1.yaml
   email:
-    type: boolean
+    $ref: ./Optin.v1.yaml
   push:
-    type: boolean
+    $ref: ./Optin.v1.yaml

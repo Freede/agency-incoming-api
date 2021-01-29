@@ -68,9 +68,12 @@ paths:
                   type: string
                 verify:
                   type: boolean
+                optins:
+                  $ref: ../models/Optins.v1.yaml
               required:
                 - regcode
                 - verify
+            examples: {}
         description: Consumer registration information
   '/account/{accountNum}':
     get:
