@@ -3,6 +3,8 @@ info:
   title: Agency Incoming API
   version: '1.0'
   description: API spec for agencies to process incoming requests from Freede.
+  x-explorer-enabled: false
+  x-samples-languages: ['curl', 'node', 'ruby', 'javascript', 'python', 'go', 'csharp', 'java']
 servers: []
 paths:
   /registration:
