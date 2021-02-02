@@ -1,6 +1,14 @@
 openapi: 3.0.0
 x-explorer-enabled: false
-x-samples-languages: ['curl', 'node', 'ruby', 'javascript', 'python', 'go', 'csharp', 'java']
+x-samples-languages:
+  - curl
+  - node
+  - ruby
+  - javascript
+  - python
+  - go
+  - csharp
+  - java
 info:
   title: Agency Incoming API
   version: '1.0'
@@ -154,6 +162,7 @@ paths:
                     - dispute
                     - attorney
                     - bankruptcy
+                  description: 'Type of form could be `dispute`,`attorney`, or `bankruptcy`'
                 form:
                   oneOf:
                     - $ref: '#/components/schemas/DisputeForm'
