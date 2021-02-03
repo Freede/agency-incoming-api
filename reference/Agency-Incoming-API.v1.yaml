@@ -1,14 +1,4 @@
 openapi: 3.0.0
-x-explorer-enabled: false
-x-samples-languages:
-  - curl
-  - node
-  - ruby
-  - javascript
-  - python
-  - go
-  - csharp
-  - java
 info:
   title: Agency Incoming API
   version: '1.0'
@@ -162,7 +152,6 @@ paths:
                     - dispute
                     - attorney
                     - bankruptcy
-                  description: 'Type of form could be `dispute`,`attorney`, or `bankruptcy`'
                 form:
                   oneOf:
                     - $ref: '#/components/schemas/DisputeForm'
@@ -452,6 +441,20 @@ components:
         email:
           type: string
           minLength: 1
+        website:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
     AttorneyForm:
       title: AttorneyForm
       type: object
@@ -466,13 +469,19 @@ components:
       properties:
         chapter:
           type: string
-          minLength: 1
         filing_date:
           type: string
-          minLength: 1
+          format: date
         discharge_date:
           type: string
-          minLength: 1
+          format: date
+        case_number:
+          type: string
+        district_court:
+          type: string
+        date_filed:
+          type: string
+          format: date
     BankruptcyForm:
       title: BankruptcyForm
       type: object
