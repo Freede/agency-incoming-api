@@ -479,9 +479,6 @@ components:
           type: string
         district_court:
           type: string
-        date_filed:
-          type: string
-          format: date
     BankruptcyForm:
       title: BankruptcyForm
       type: object
