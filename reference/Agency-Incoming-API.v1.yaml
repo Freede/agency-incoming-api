@@ -167,6 +167,9 @@ paths:
                         type: string
                         enum:
                           - proof_of_debt
+                consumer_ref:
+                  type: string
+                  description: Agency consumer ref
       description: Endpoint to receive forms consumer has submitted
   '/consumer/{consumerRef}':
     parameters:
