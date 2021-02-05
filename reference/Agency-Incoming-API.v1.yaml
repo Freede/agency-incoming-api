@@ -155,8 +155,6 @@ paths:
                 form:
                   oneOf:
                     - $ref: '#/components/schemas/DisputeForm'
-                    - $ref: '#/components/schemas/AttorneyForm'
-                    - $ref: '#/components/schemas/BankruptcyForm'
                 task:
                   type: array
                   description: 'If provided, use this ID and type to submit back to the Agency API'
@@ -455,14 +453,6 @@ components:
           type: string
         zip:
           type: string
-    AttorneyForm:
-      title: AttorneyForm
-      type: object
-      properties:
-        reason:
-          type: string
-        attorney:
-          $ref: '#/components/schemas/Attorney'
     Bankruptcy:
       description: ''
       type: object
@@ -479,14 +469,6 @@ components:
           type: string
         district_court:
           type: string
-    BankruptcyForm:
-      title: BankruptcyForm
-      type: object
-      properties:
-        bankruptcy:
-          $ref: '#/components/schemas/Bankruptcy'
-        attorney:
-          $ref: '#/components/schemas/Attorney'
     Consumer:
       description: ''
       type: object
