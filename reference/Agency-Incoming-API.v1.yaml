@@ -534,7 +534,7 @@ components:
       properties:
         sms:
           type: boolean
-        voice:
+        phone:
           type: boolean
         email:
           type: boolean
