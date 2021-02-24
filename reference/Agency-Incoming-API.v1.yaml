@@ -273,18 +273,11 @@ paths:
             examples:
               Example:
                 value:
-                  sms:
-                    allowed: true
-                    default: false
-                  phone:
-                    allowed: true
-                    default: false
-                  email:
-                    allowed: true
-                    default: true
-                  push:
-                    allowed: true
-                    default: false
+                  sms: true
+                  voice: true
+                  email: true
+                  push: true
+                  default: sms
       description: Endpoint to receive updated consumer optins
   '/consumer/{consumerRef}/conversation':
     parameters:
@@ -535,23 +528,17 @@ components:
           type: array
           items:
             type: string
-    Optin:
-      title: Optin
-      type: object
-      properties:
-        allowed:
-          type: boolean
-        default:
-          type: boolean
     Optins:
       title: Optins
       type: object
       properties:
         sms:
-          $ref: '#/components/schemas/Optin'
+          type: boolean
         voice:
-          $ref: '#/components/schemas/Optin'
+          type: boolean
         email:
-          $ref: '#/components/schemas/Optin'
+          type: boolean
         push:
-          $ref: '#/components/schemas/Optin'
+          type: boolean
+        default:
+          type: string
