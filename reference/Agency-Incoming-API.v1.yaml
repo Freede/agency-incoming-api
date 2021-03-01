@@ -69,7 +69,7 @@ paths:
                 verify:
                   type: boolean
                 optins:
-                  $ref: '#/components/schemas/Optins'
+                  $ref: '#/components/schemas/optins'
               required:
                 - regcode
                 - verify
@@ -269,7 +269,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Optins'
+              $ref: '#/components/schemas/optins'
             examples:
               Example:
                 value:
@@ -528,8 +528,8 @@ components:
           type: array
           items:
             type: string
-    Optins:
-      title: Optins
+    optins:
+      title: optins
       type: object
       properties:
         sms:
