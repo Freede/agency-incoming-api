@@ -73,7 +73,26 @@ paths:
               required:
                 - regcode
                 - verify
-            examples: {}
+            examples:
+              example-1:
+                value:
+                  first: string
+                  last: string
+                  address: string
+                  address2: string
+                  city: string
+                  state: string
+                  zip: string
+                  phone: string
+                  email: user@example.com
+                  regcode: string
+                  verify: true
+                  optins:
+                    sms: true
+                    phone: true
+                    email: true
+                    push: true
+                    default: string
         description: Consumer registration information
   '/account/{accountNum}':
     get:
@@ -87,7 +106,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Account'
-              examples: {}
+              examples:
+                Example:
+                  value:
+                    ref: string
+                    desc: string
+                    status_reason: string
+                    status: string
+                    balance_current: 0
+                    balance_start: 0
+                    balance_buckets:
+                      - name: string
+                        balance_current: 0
+                        balance_start: 0
+                        type: interest
+                    agency:
+                      ref: string
+                      last_payment_amt: 0
+                      last_activity: string
+                      last_payment_date: string
+                    creditor:
+                      ref: string
+                      last_payment_amt: 0
+                      last_activity: string
+                      last_payment_date: string
+                      name: string
+                    consumer:
+                      ref: string
         '204':
           description: No Content
       operationId: get-account
@@ -170,6 +215,38 @@ paths:
                 consumer_ref:
                   type: string
                   description: Agency consumer ref
+            examples:
+              Dispute Example:
+                value:
+                  type: dispute
+                  form:
+                    amount: 0
+                    reason: string
+                    bankruptcy:
+                      chapter: string
+                      filing_date: '2019-08-24'
+                      discharge_date: '2019-08-24'
+                      case_number: string
+                      district_court: string
+                    attorney:
+                      name: string
+                      lawfirm: string
+                      phone: string
+                      fax: string
+                      email: string
+                      website: string
+                      address1: string
+                      address2: string
+                      address3: string
+                      city: string
+                      state: string
+                      zip: string
+                    accounts:
+                      - string
+                  task:
+                    - id: string
+                      type: proof_of_debt
+                  consumer_ref: string
       description: Endpoint to receive forms consumer has submitted
   '/consumer/{consumerRef}':
     parameters:
@@ -207,6 +284,19 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Consumer'
+            examples:
+              Example:
+                value:
+                  first: string
+                  last: string
+                  address: string
+                  address2: string
+                  city: string
+                  state: string
+                  postal: string
+                  email: string
+                  phone: string
+                  ref: string
       description: Endpoint to receive updated consumer demographics
     delete:
       summary: Deregister consumer
@@ -274,10 +364,10 @@ paths:
               Example:
                 value:
                   sms: true
-                  voice: true
+                  phone: true
                   email: true
                   push: true
-                  default: sms
+                  default: string
       description: Endpoint to receive updated consumer optins
   '/consumer/{consumerRef}/conversation':
     parameters:
@@ -315,6 +405,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Conversation'
+            examples:
+              Example:
+                value:
+                  type: string
+                  when: string
+                  id: string
       description: Endpoint to receive notice of consumer conversation. Can use Id to retrieve conversation details from Agency API
 tags:
   - name: Accounts
