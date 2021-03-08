@@ -437,6 +437,11 @@ components:
         status:
           type: string
           minLength: 1
+          enum:
+            - active
+            - disputed
+            - closed-pif
+            - closed-settlement
         balance_current:
           type: number
         balance_start:
