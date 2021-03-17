@@ -198,7 +198,7 @@ paths:
                 form:
                   oneOf:
                     - $ref: '#/components/schemas/DisputeForm'
-                task:
+                tasks:
                   type: array
                   description: 'If provided, use this ID and type to submit back to the Agency API'
                   items:
