@@ -112,7 +112,7 @@ paths:
                     ref: string
                     desc: string
                     status_reason: string
-                    status: string
+                    status: integer
                     balance_current: 0
                     balance_start: 0
                     balance_buckets:
@@ -443,8 +443,8 @@ components:
         status:
           type: integer
           minimum: 0
-          maximum: 3
-          description: '0=active,1=closed paid in full, 2=closed settlement, 3=disputed'
+          maximum: 4
+          description: '0=active,1=closed paid in full, 2=closed settlement, 3=disputed, 4=pulled'
         balance_current:
           type: number
         balance_start:
