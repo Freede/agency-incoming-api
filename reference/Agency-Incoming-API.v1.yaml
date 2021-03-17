@@ -1,0 +1,648 @@
+openapi: 3.0.0
+info:
+  title: Agency Incoming API
+  version: '1.0'
+  description: API spec for agencies to process incoming requests from Freede.
+servers: []
+paths:
+  /registration:
+    post:
+      summary: Register consumer
+      tags:
+        - Registration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          description: Unauthorized
+      operationId: post-registration
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      description: Freede will submit this POST request when a consumer is attempting to register with the agency. Agency may perform their own validation checks and return a response.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first:
+                  type: string
+                last:
+                  type: string
+                address:
+                  type: string
+                address2:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                zip:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                regcode:
+                  type: string
+                verify:
+                  type: boolean
+                optins:
+                  $ref: '#/components/schemas/optins'
+              required:
+                - regcode
+                - verify
+            examples:
+              example-1:
+                value:
+                  first: string
+                  last: string
+                  address: string
+                  address2: string
+                  city: string
+                  state: string
+                  zip: string
+                  phone: string
+                  email: user@example.com
+                  regcode: string
+                  verify: true
+                  optins:
+                    sms: true
+                    phone: true
+                    email: true
+                    push: true
+                    default: string
+        description: Consumer registration information
+  '/account/{accountNum}':
+    get:
+      summary: Get account details
+      tags:
+        - Accounts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+              examples:
+                Example:
+                  value:
+                    ref: string
+                    desc: string
+                    status_reason: string
+                    status: string
+                    balance_current: 0
+                    balance_start: 0
+                    balance_buckets:
+                      - name: string
+                        balance_current: 0
+                        balance_start: 0
+                        type: interest
+                    agency:
+                      ref: string
+                      last_payment_amt: 0
+                      last_activity: string
+                      last_payment_date: string
+                    creditor:
+                      ref: string
+                      last_payment_amt: 0
+                      last_activity: string
+                      last_payment_date: string
+                      name: string
+                    consumer:
+                      ref: string
+        '204':
+          description: No Content
+      operationId: get-account
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      description: Endpoint to get the account details from the agency
+    parameters:
+      - schema:
+          type: string
+        name: accountNum
+        in: path
+        required: true
+        description: Agency account number
+  '/consumer/{consumerRef}/form':
+    post:
+      summary: Consumer submitted form
+      responses:
+        '200':
+          description: OK
+      operationId: post-forms
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - dispute
+                    - attorney
+                    - bankruptcy
+                form:
+                  oneOf:
+                    - $ref: '#/components/schemas/DisputeForm'
+                task:
+                  type: array
+                  description: 'If provided, use this ID and type to submit back to the Agency API'
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      type:
+                        type: string
+                        enum:
+                          - proof_of_debt
+                consumer_ref:
+                  type: string
+                  description: Agency consumer ref
+            examples:
+              Dispute Example:
+                value:
+                  type: dispute
+                  form:
+                    amount: 0
+                    reason: string
+                    bankruptcy:
+                      chapter: string
+                      filing_date: '2019-08-24'
+                      discharge_date: '2019-08-24'
+                      case_number: string
+                      district_court: string
+                    attorney:
+                      name: string
+                      lawfirm: string
+                      phone: string
+                      fax: string
+                      email: string
+                      website: string
+                      address1: string
+                      address2: string
+                      address3: string
+                      city: string
+                      state: string
+                      zip: string
+                    accounts:
+                      - string
+                  task:
+                    - id: string
+                      type: proof_of_debt
+                  consumer_ref: string
+      description: Endpoint to receive forms consumer has submitted
+      tags:
+        - Consumers
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+  '/consumer/{consumerRef}':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+    put:
+      summary: Update consumer demographics
+      tags:
+        - Consumers
+      responses:
+        '200':
+          description: OK
+      operationId: put-consumer-consumerRef
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer'
+            examples:
+              Example:
+                value:
+                  first: string
+                  last: string
+                  address: string
+                  address2: string
+                  city: string
+                  state: string
+                  postal: string
+                  email: string
+                  phone: string
+                  ref: string
+      description: Endpoint to receive updated consumer demographics
+    delete:
+      summary: Deregister consumer
+      operationId: delete-consumer-consumerRef
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      responses:
+        '200':
+          description: OK
+      description: Endpoint to deregister consumer from Freede
+      tags:
+        - Consumers
+  '/consumer/{consumerRef}/optins':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+        description: Agency consumer reference
+    put:
+      summary: Update consumer optins
+      tags:
+        - Consumers
+      responses:
+        '200':
+          description: OK
+      operationId: put-consumer-consumerRef-optins
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/optins'
+            examples:
+              Example:
+                value:
+                  sms: true
+                  phone: true
+                  email: true
+                  push: true
+                  default: string
+      description: Endpoint to receive updated consumer optins
+  '/consumer/{consumerRef}/conversation':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+    post:
+      summary: Consumer conversation
+      tags:
+        - Consumers
+      responses:
+        '200':
+          description: OK
+      operationId: post-consumer-consumerRef-conversation
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Conversation'
+            examples:
+              Example:
+                value:
+                  type: string
+                  when: string
+                  id: string
+      description: Endpoint to receive notice of consumer conversation. Can use Id to retrieve conversation details from Agency API
+tags:
+  - name: Accounts
+  - name: Consumers
+  - name: Forms
+  - name: Registration
+components:
+  schemas:
+    Account:
+      description: Agency Account
+      type: object
+      properties:
+        ref:
+          type: string
+          minLength: 1
+          description: Agency account reference number
+        desc:
+          type: string
+          minLength: 1
+          description: Agency account description
+        status_reason:
+          type: string
+          minLength: 1
+        status:
+          type: integer
+          minimum: 0
+          maximum: 3
+          description: '0=active,1=closed paid in full, 2=closed settlement, 3=disputed'
+        balance_current:
+          type: number
+        balance_start:
+          type: number
+        balance_buckets:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+              balance_current:
+                type: number
+              balance_start:
+                type: number
+              type:
+                type: string
+                minLength: 1
+                enum:
+                  - interest
+                  - principal
+                  - fees
+                  - other
+            required:
+              - name
+              - balance_current
+              - balance_start
+              - type
+        agency:
+          type: object
+          properties:
+            ref:
+              type: string
+              minLength: 1
+            last_payment_amt:
+              type: number
+            last_activity:
+              type: string
+              minLength: 1
+            last_payment_date:
+              type: string
+              minLength: 1
+          required:
+            - ref
+        creditor:
+          type: object
+          properties:
+            ref:
+              type: string
+              minLength: 1
+            last_payment_amt:
+              type: number
+            last_activity:
+              type: string
+              minLength: 1
+            last_payment_date:
+              type: string
+              minLength: 1
+            name:
+              type: string
+              minLength: 1
+          required:
+            - ref
+            - name
+        consumer:
+          type: object
+          properties:
+            ref:
+              type: string
+              minLength: 1
+          required:
+            - ref
+    Attorney:
+      description: ''
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        lawfirm:
+          type: string
+          minLength: 1
+        phone:
+          type: string
+          minLength: 1
+        fax:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+        website:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+    Bankruptcy:
+      description: ''
+      type: object
+      properties:
+        chapter:
+          type: string
+        filing_date:
+          type: string
+          format: date
+        discharge_date:
+          type: string
+          format: date
+        case_number:
+          type: string
+        district_court:
+          type: string
+    Consumer:
+      description: ''
+      type: object
+      properties:
+        first:
+          type: string
+          minLength: 1
+        last:
+          type: string
+          minLength: 1
+        address:
+          type: string
+          minLength: 1
+        address2:
+          type: string
+          minLength: 1
+        city:
+          type: string
+          minLength: 1
+        state:
+          type: string
+          minLength: 1
+        postal:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+        phone:
+          type: string
+          minLength: 1
+        ref:
+          type: string
+          minLength: 1
+    Conversation:
+      description: ''
+      type: object
+      properties:
+        type:
+          type: string
+          minLength: 1
+        when:
+          type: string
+          minLength: 1
+        id:
+          type: string
+          minLength: 1
+    DisputeForm:
+      title: DisputeForm
+      type: object
+      properties:
+        amount:
+          type: number
+        reason:
+          type: string
+        bankruptcy:
+          $ref: '#/components/schemas/Bankruptcy'
+        attorney:
+          $ref: '#/components/schemas/Attorney'
+        accounts:
+          type: array
+          items:
+            type: string
+    optins:
+      title: optins
+      type: object
+      properties:
+        sms:
+          type: boolean
+        phone:
+          type: boolean
+        email:
+          type: boolean
+        push:
+          type: boolean
+        default:
+          type: string
