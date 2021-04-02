@@ -112,7 +112,7 @@ paths:
                     ref: string
                     desc: string
                     status_reason: string
-                    status: integer
+                    status: 0
                     balance_current: 0
                     balance_start: 0
                     balance_buckets:
@@ -418,6 +418,188 @@ paths:
                   when: string
                   id: string
       description: Endpoint to receive notice of consumer conversation. Can use Id to retrieve conversation details from Agency API
+  '/account/{accountNum}/payment':
+    parameters:
+      - schema:
+          type: string
+        name: accountNum
+        in: path
+        required: true
+    post:
+      summary: Account Payment
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: OK
+      operationId: post-account-accountNum-payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Payment ID
+                amount:
+                  type: number
+                  description: Amount consumer paid
+                when:
+                  type: string
+                  description: When the consumer paid
+                  format: date-time
+                consumer_ref:
+                  type: string
+                  description: Consumer reference
+                method:
+                  type: string
+                  enum:
+                    - bank
+                    - card
+                  description: Method of payment
+                status:
+                  type: integer
+                  description: '0=scheduled,1=pending,2=applied,3=refunded,4=returned,5=canceled'
+              required:
+                - id
+                - amount
+                - when
+                - consumer_ref
+                - method
+                - status
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+      description: Consumer has sent a payment for an account
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+  '/account/{accountNum}/payment/{paymentId}':
+    parameters:
+      - schema:
+          type: string
+        name: paymentId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: accountNum
+        in: path
+        required: true
+    put:
+      summary: Update payment
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: OK
+      operationId: put-account-accountNum-payment-paymentId
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      description: Endpoint to update the payment in the Freede system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: integer
+                  description: '0=scheduled,1=pending,2=applied,3=refunded,4=returned,5=canceled'
+              required:
+                - status
+  '/account/{accountNum}/offer':
+    parameters:
+      - schema:
+          type: string
+        name: accountNum
+        in: path
+        required: true
+    post:
+      summary: Submit settlement offer
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: '0 = rejected, 1 = accepted, 2 = counter, 3 = in review'
+                    enum:
+                      - 0
+                      - 1
+                      - 2
+                      - 3
+                  counter:
+                    type: number
+                required:
+                  - status
+      operationId: post-account-accountNum-offer
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      description: Submit account settlement offer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Offer Id for reference if there is a manual review.
+                amount:
+                  type: number
+                  description: Amount consumer has offered to settle the account
+              required:
+                - id
+                - amount
 tags:
   - name: Accounts
   - name: Consumers
