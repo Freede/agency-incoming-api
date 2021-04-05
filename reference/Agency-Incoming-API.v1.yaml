@@ -535,8 +535,11 @@ paths:
                 status:
                   type: integer
                   description: '0=scheduled,1=pending,2=applied,3=refunded,4=returned,5=canceled'
+                when:
+                  type: string
               required:
                 - status
+                - when
   '/account/{accountNum}/offer':
     parameters:
       - schema:
