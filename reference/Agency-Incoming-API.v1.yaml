@@ -601,9 +601,13 @@ paths:
                 amount:
                   type: number
                   description: Amount consumer has offered to settle the account
+                task_id:
+                  type: string
+                  description: Task Id to be used if manual review
               required:
                 - id
                 - amount
+                - task_id
 tags:
   - name: Accounts
   - name: Consumers
