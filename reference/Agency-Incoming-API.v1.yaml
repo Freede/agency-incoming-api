@@ -525,7 +525,7 @@ paths:
           in: header
           name: Freede-Verification-Token
           description: Token Salt
-      description: Endpoint to update the payment in the Freede system
+      description: Endpoint to update the payment status
       requestBody:
         content:
           application/json:
