@@ -549,7 +549,8 @@ paths:
         required: true
     post:
       summary: Submit settlement offer
-      tags: []
+      tags:
+        - Offers
       responses:
         '200':
           description: OK
