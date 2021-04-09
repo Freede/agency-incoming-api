@@ -447,7 +447,7 @@ paths:
                   description: Amount consumer paid
                 when:
                   type: string
-                  description: When the consumer paid
+                  description: When the consumer submitted payment
                   format: date-time
                 consumer_ref:
                   type: string
@@ -461,6 +461,9 @@ paths:
                 status:
                   type: integer
                   description: '0=scheduled,1=pending,2=applied,3=refunded,4=returned,5=canceled'
+                scheduled:
+                  type: string
+                  description: When the payment is scheduled for if it's scheduled
               required:
                 - id
                 - amount
@@ -537,6 +540,10 @@ paths:
                   description: '0=scheduled,1=pending,2=applied,3=refunded,4=returned,5=canceled'
                 when:
                   type: string
+                  description: When the status change happened
+                scheduled:
+                  type: string
+                  description: when the payment is scheduled if it's a scheduled payment
               required:
                 - status
                 - when
