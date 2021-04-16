@@ -611,10 +611,14 @@ paths:
                 task_id:
                   type: string
                   description: Task Id to be used if manual review
+                consumer_ref:
+                  type: string
+                  description: Consumer ref that has submitted this request
               required:
                 - id
                 - amount
                 - task_id
+                - consumer_ref
 tags:
   - name: Accounts
   - name: Consumers
