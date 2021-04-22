@@ -654,6 +654,7 @@ components:
           type: array
           uniqueItems: true
           minItems: 1
+          description: 'List of balance buckets to display. If a bucket is provided and is null or blank, we will not display it. We display the exact value provided, given it is a number with a precision of 2. Any other values will not be processed.'
           items:
             type: object
             properties:
