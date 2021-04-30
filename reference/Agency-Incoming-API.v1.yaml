@@ -109,6 +109,8 @@ paths:
               examples:
                 Example:
                   value:
+                    type: medical
+                    interest_bearing: true
                     ref: string
                     desc: string
                     status_reason: string
@@ -673,6 +675,8 @@ components:
                   - principal
                   - fees
                   - other
+              '':
+                type: string
             required:
               - name
               - balance_current
@@ -680,6 +684,8 @@ components:
               - type
         agency:
           type: object
+          required:
+            - ref
           properties:
             ref:
               type: string
@@ -692,10 +698,11 @@ components:
             last_payment_date:
               type: string
               minLength: 1
-          required:
-            - ref
         creditor:
           type: object
+          required:
+            - ref
+            - name
           properties:
             ref:
               type: string
@@ -711,17 +718,31 @@ components:
             name:
               type: string
               minLength: 1
-          required:
-            - ref
-            - name
         consumer:
           type: object
+          required:
+            - ref
           properties:
             ref:
               type: string
               minLength: 1
-          required:
-            - ref
+        type:
+          type: string
+          enum:
+            - medical
+            - student
+        interest_bearing:
+          type: boolean
+      required:
+        - ref
+        - status
+        - balance_current
+        - balance_start
+        - agency
+        - creditor
+        - consumer
+        - type
+        - interest_bearing
     Attorney:
       description: ''
       type: object
