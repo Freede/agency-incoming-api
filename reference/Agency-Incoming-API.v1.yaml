@@ -19,6 +19,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Account'
+              examples: {}
         '401':
           description: Unauthorized
       operationId: post-registration
@@ -675,8 +676,6 @@ components:
                   - principal
                   - fees
                   - other
-              '':
-                type: string
             required:
               - name
               - balance_current
