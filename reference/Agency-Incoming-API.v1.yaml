@@ -5,6 +5,35 @@ info:
   description: API spec for agencies to process incoming requests from Freede.
 servers: []
 paths:
+  /intent/communication:
+    post:
+      summary: Agency confirmation of intent to communicate with consumer
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: post-intent-communication
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Intent ID
+                consumer_ref:
+                  type: string
+                  description: Consumer Reference
+                method:
+                  type: string
+                type:
+                  type: integer
   /registration:
     post:
       summary: Register consumer
