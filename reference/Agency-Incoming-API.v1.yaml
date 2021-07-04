@@ -12,10 +12,17 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  allowed:
+                    type: boolean
+                required:
+                  - allowed
         '401':
           description: Unauthorized
-        '403':
-          description: Forbidden
       operationId: post-intent-communication
       description: ''
       requestBody:
@@ -610,6 +617,8 @@ paths:
                     type: number
                 required:
                   - status
+        '401':
+          description: Unauthorized
       operationId: post-account-accountNum-offer
       parameters:
         - schema:
