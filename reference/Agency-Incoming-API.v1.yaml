@@ -904,5 +904,3 @@ components:
           type: boolean
         push:
           type: boolean
-        default:
-          type: string
