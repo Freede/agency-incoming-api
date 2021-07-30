@@ -893,6 +893,17 @@ components:
           type: array
           items:
             type: string
+        files:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              base64:
+                type: string
+              mime:
+                type: string
     optins:
       title: optins
       type: object
