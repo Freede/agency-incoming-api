@@ -916,3 +916,5 @@ components:
           type: boolean
         push:
           type: boolean
+        esign:
+          type: boolean
