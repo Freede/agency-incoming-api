@@ -616,6 +616,9 @@ paths:
                       - 3
                   counter:
                     type: number
+                  expires:
+                    type: string
+                    format: date-time
                 required:
                   - status
         '401':
