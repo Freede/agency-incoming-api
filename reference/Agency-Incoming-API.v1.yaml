@@ -39,9 +39,34 @@ paths:
                   type: string
                   description: Consumer Reference
                 method:
-                  type: string
+                  type: integer
+                  description: '0 = Email, 1 = SMS, 2 = Popup'
+                  enum:
+                    - 0
+                    - 1
+                    - 2
                 type:
                   type: integer
+                  description: |-
+                    0 = Registration Confirmation
+                    1 = Initial Score
+                    2 = Score Change
+                    3 = Payment attempt failed, no payment plan
+                    4 = Payment attempt failed, payment plan
+                    5 = Upcoming payment reminder
+                    6 = Repayment offer
+                    7 = Increase payment plan
+                    8 = Setup Payment (Standard)
+                    9 = Setup Payment (Good Place)
+                    —— Future Planned ——
+                    10 = Deregister
+                    11 = Payment applied
+                    12 = Payment plan confirmation
+                    13 = Payment plan canceled
+                    14 = Payment returned
+                    15 = Payment refunded
+                  minimum: 0
+                  maximum: 15
   /registration:
     post:
       summary: Register consumer
