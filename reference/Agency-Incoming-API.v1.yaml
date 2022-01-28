@@ -438,6 +438,7 @@ paths:
                   phone: true
                   email: true
                   push: true
+                  esign: true
                   default: string
       description: Endpoint to receive updated consumer optins
   '/consumer/{consumerRef}/conversation':
