@@ -946,3 +946,11 @@ components:
           type: boolean
         esign:
           type: boolean
+        default:
+          type: string
+          description: Default mode of communication.
+          enum:
+            - sms
+            - phone
+            - email
+            - push
