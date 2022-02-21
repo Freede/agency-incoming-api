@@ -527,6 +527,8 @@ paths:
                 value:
                   when: '2019-08-24T14:15:22Z'
                   status: closed
+      tags:
+        - Consumers
   '/account/{accountNum}/payment':
     parameters:
       - schema:
