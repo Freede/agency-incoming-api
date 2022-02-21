@@ -478,12 +478,55 @@ paths:
             schema:
               $ref: '#/components/schemas/Conversation'
             examples:
-              Example:
+              Chat Example:
                 value:
-                  type: string
-                  when: string
-                  id: string
+                  type: chat
+                  when: '2019-08-24T14:15:22Z'
+                  id: 5fa4c5a7bdb82a9e6e0a9ae9
+                  status: open
       description: Endpoint to receive notice of consumer conversation. Can use Id to retrieve conversation details from Agency API
+  '/consumer/{consumerRef}/{conversationId}':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: conversationId
+        in: path
+        required: true
+    put:
+      summary: Update consumer conversation
+      operationId: put-consumer-consumerRef-conversationId
+      responses:
+        '200':
+          description: OK
+      description: Update the status of the consumer conversation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                when:
+                  type: string
+                  description: When the status change happened
+                  format: date-time
+                status:
+                  type: string
+                  description: Status of the conversation
+                  enum:
+                    - closed
+              required:
+                - when
+                - status
+            examples:
+              example-1:
+                value:
+                  when: '2019-08-24T14:15:22Z'
+                  status: closed
   '/account/{accountNum}/payment':
     parameters:
       - schema:
@@ -900,12 +943,38 @@ components:
         type:
           type: string
           minLength: 1
+          enum:
+            - sms
+            - email
+            - chat
+            - phone
+          description: Conversation channel type
         when:
           type: string
           minLength: 1
+          format: date-time
+          description: Datetime of when the conversation happened
         id:
           type: string
           minLength: 1
+          description: Conversation ID
+        status:
+          type: string
+          description: Status of the conversation
+          enum:
+            - open
+            - closed
+      required:
+        - type
+        - when
+        - id
+        - status
+      x-examples:
+        Chat Example:
+          type: chat
+          when: '2019-08-24T14:15:22Z'
+          id: 5fa4c5a7bdb82a9e6e0a9ae9
+          status: open
     DisputeForm:
       title: DisputeForm
       type: object
