@@ -279,7 +279,7 @@ paths:
                   type: string
                   description: Agency consumer ref
             examples:
-              Dispute Example:
+              Dispute example:
                 value:
                   type: dispute
                   form:
@@ -306,7 +306,11 @@ paths:
                       zip: string
                     accounts:
                       - string
-                  task:
+                    files:
+                      - name: string
+                        base64: string
+                        mime: string
+                  tasks:
                     - id: string
                       type: proof_of_debt
                   consumer_ref: string
