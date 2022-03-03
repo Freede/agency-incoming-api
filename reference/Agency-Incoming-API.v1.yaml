@@ -986,9 +986,6 @@ components:
         phone:
           type: string
           minLength: 1
-        ref:
-          type: string
-          minLength: 1
       x-examples:
         example-1:
           first: string
@@ -997,10 +994,9 @@ components:
           address2: string
           city: string
           state: string
-          postal: string
+          zip: string
           email: string
           phone: string
-          ref: string
     Conversation:
       description: ''
       type: object
