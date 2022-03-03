@@ -277,9 +277,6 @@ paths:
                         type: string
                         enum:
                           - proof_of_debt
-                consumer_ref:
-                  type: string
-                  description: Agency consumer ref
             examples:
               Dispute example:
                 value:
