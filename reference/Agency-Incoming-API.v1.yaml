@@ -360,7 +360,56 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Consumer'
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  first: string
+                  last: string
+                  address: string
+                  address2: string
+                  city: string
+                  state: string
+                  zip: string
+                  email: string
+                  phone: string
+                  ref: string
+              properties:
+                first:
+                  type: string
+                  minLength: 1
+                last:
+                  type: string
+                  minLength: 1
+                address:
+                  type: string
+                  minLength: 1
+                address2:
+                  type: string
+                  minLength: 1
+                city:
+                  type: string
+                  minLength: 1
+                state:
+                  type: string
+                  minLength: 1
+                zip:
+                  type: string
+                email:
+                  type: string
+                  minLength: 1
+                phone:
+                  type: string
+                  minLength: 1
+              required:
+                - first
+                - last
+                - address
+                - address2
+                - city
+                - state
+                - email
+                - phone
             examples:
               Example:
                 value:
@@ -370,10 +419,9 @@ paths:
                   address2: string
                   city: string
                   state: string
-                  postal: string
+                  zip: string
                   email: string
                   phone: string
-                  ref: string
       description: Endpoint to receive updated consumer demographics
     delete:
       summary: Deregister consumer
@@ -932,7 +980,7 @@ components:
         state:
           type: string
           minLength: 1
-        postal:
+        zip:
           type: string
           minLength: 1
         email:
@@ -944,6 +992,18 @@ components:
         ref:
           type: string
           minLength: 1
+      x-examples:
+        example-1:
+          first: string
+          last: string
+          address: string
+          address2: string
+          city: string
+          state: string
+          postal: string
+          email: string
+          phone: string
+          ref: string
     Conversation:
       description: ''
       type: object
