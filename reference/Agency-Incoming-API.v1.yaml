@@ -405,6 +405,7 @@ paths:
                 - address2
                 - city
                 - state
+                - zip
                 - email
                 - phone
             examples:
