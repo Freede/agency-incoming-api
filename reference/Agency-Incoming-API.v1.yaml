@@ -412,9 +412,7 @@ paths:
                   zip: string
                   email: string
                   phone: string
-      description: |-
-        Endpoint to receive updated consumer demographics.
-        Pushing a new number to Freede confirms the consumer's express consent to received text messages under TCPA and will re-enable the consumer optin if disabled.
+      description: Endpoint to receive updated consumer demographics.
     delete:
       summary: Deregister consumer
       operationId: delete-consumer-consumerRef
