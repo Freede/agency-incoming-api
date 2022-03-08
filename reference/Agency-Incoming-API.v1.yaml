@@ -383,7 +383,8 @@ paths:
                   minLength: 1
                 state:
                   type: string
-                  minLength: 1
+                  minLength: 2
+                  maxLength: 2
                 zip:
                   type: string
                 email:
@@ -391,7 +392,8 @@ paths:
                   minLength: 1
                 phone:
                   type: string
-                  minLength: 1
+                  minLength: 11
+                  maxLength: 11
               required:
                 - address
                 - address2
@@ -403,8 +405,6 @@ paths:
             examples:
               Example:
                 value:
-                  first: string
-                  last: string
                   address: string
                   address2: string
                   city: string
@@ -878,6 +878,8 @@ components:
           type: object
           required:
             - ref
+            - first
+            - last
           properties:
             ref:
               type: string
