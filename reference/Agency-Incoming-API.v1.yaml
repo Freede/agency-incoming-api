@@ -198,6 +198,8 @@ paths:
                       name: string
                     consumer:
                       ref: string
+                      first: string
+                      last: string
         '204':
           description: No Content
       operationId: get-account
