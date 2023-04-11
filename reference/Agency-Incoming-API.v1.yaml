@@ -531,7 +531,7 @@ paths:
                   id: 5fa4c5a7bdb82a9e6e0a9ae9
                   status: open
       description: Endpoint to receive notice of consumer conversation. Can use Id to retrieve conversation details from Agency API
-  '/consumer/{consumerRef}/{conversationId}':
+  '/consumer/{consumerRef}/conversation/{conversationId}':
     parameters:
       - schema:
           type: string
