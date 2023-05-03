@@ -101,7 +101,7 @@ paths:
           in: header
           name: Freede-Verification-Token
           description: Token Salt
-      description: Freede will submit this POST request when a consumer is attempting to register with the agency. Agency may perform their own validation checks and return a response.
+      description: Freede will submit this POST request when a consumer is attempting to register with the agency. Agency may perform their own validation checks and return a response. The initial verify request, if accepted, should return a blank 200 OK.
       requestBody:
         content:
           application/json:
