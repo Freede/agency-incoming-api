@@ -101,7 +101,7 @@ paths:
           in: header
           name: Freede-Verification-Token
           description: Token Salt
-      description: Freede will submit this POST request when a consumer is attempting to register with the agency. Agency may perform their own validation checks and return a response. The initial verify request, if accepted, should return a blank 200 OK.
+      description: Freede will submit this POST request when a consumer is attempting to register with the agency. Agency may perform their own validation checks and return a response.
       requestBody:
         content:
           application/json:
@@ -200,8 +200,8 @@ paths:
                       ref: string
                       first: string
                       last: string
-        '204':
-          description: No Content
+        '401':
+          description: Unauthorized
       operationId: get-account
       parameters:
         - schema:
@@ -589,6 +589,8 @@ paths:
       responses:
         '200':
           description: OK
+        '401':
+          description: Unauthorized
       operationId: post-account-accountNum-payment
       requestBody:
         content:
@@ -668,6 +670,8 @@ paths:
       responses:
         '200':
           description: OK
+        '401':
+          description: Unauthorized
       operationId: put-account-accountNum-payment-paymentId
       parameters:
         - schema:
