@@ -78,9 +78,18 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Account'
+                type: object
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+                  first:
+                    type: string
+                  last:
+                    type: string
+                  ref:
+                    type: string
               examples: {}
         '401':
           description: Unauthorized
@@ -155,7 +164,7 @@ paths:
                     phone: true
                     email: true
                     push: true
-                    default: string
+                    default: email
         description: Consumer registration information
   '/account/{accountNum}':
     get:
@@ -279,42 +288,6 @@ paths:
                         type: string
                         enum:
                           - proof_of_debt
-            examples:
-              Dispute example:
-                value:
-                  type: dispute
-                  form:
-                    amount: 0
-                    reason: string
-                    bankruptcy:
-                      chapter: string
-                      filing_date: '2019-08-24'
-                      discharge_date: '2019-08-24'
-                      case_number: string
-                      district_court: string
-                    attorney:
-                      name: string
-                      lawfirm: string
-                      phone: string
-                      fax: string
-                      email: string
-                      website: string
-                      address1: string
-                      address2: string
-                      address3: string
-                      city: string
-                      state: string
-                      zip: string
-                    accounts:
-                      - string
-                    files:
-                      - name: string
-                        base64: string
-                        mime: string
-                  tasks:
-                    - id: string
-                      type: proof_of_debt
-                  consumer_ref: string
       description: Endpoint to receive forms consumer has submitted
       tags:
         - Consumers
@@ -324,6 +297,88 @@ paths:
         name: consumerRef
         in: path
         required: true
+  '/consumer/{consumerRef}/payments':
+    post:
+      summary: Consumer submitted form
+      operationId: post-consumer-payment
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      description: ''
+      tags:
+        - Consumers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsumerPaymentRequest'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    amount: 0
+                    when: '2019-08-24T14:15:22Z'
+                    account_num: string
+                    method: bank
+                    status: 0
+                    scheduled: '2019-08-24T14:15:22Z'
+        '401':
+          description: Unauthorized
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+    get:
+      summary: Get Consumer Payments
+      operationId: get-consumer-consumerRef-payments
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConsumerPayment'
+        '401':
+          description: Unauthorized
+      tags:
+        - Consumers
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      description: Get payments on the consumer level
   '/consumer/{consumerRef}':
     parameters:
       - schema:
@@ -410,10 +465,10 @@ paths:
                   address: string
                   address2: string
                   city: string
-                  state: string
+                  state: TX
                   zip: string
                   email: string
-                  phone: string
+                  phone: '12223334444'
       description: Endpoint to receive updated consumer demographics.
     delete:
       summary: Deregister consumer
@@ -440,6 +495,86 @@ paths:
       description: Endpoint to deregister consumer from Freede
       tags:
         - Consumers
+    get:
+      summary: Get Consumer Info
+      operationId: get-consumer-consumerRef
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConsumer'
+              examples:
+                Example 1:
+                  value:
+                    first: string
+                    last: string
+                    address: string
+                    address2: string
+                    city: string
+                    state: string
+                    zip: string
+                    phone: string
+                    optins:
+                      sms: true
+                      phone: true
+                      email: true
+                      push: true
+                      esign: true
+                      default: sms
+  '/consumer/{consumerRef}/accounts':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+    get:
+      summary: Get Consumer Accounts
+      operationId: get-consumer-accounts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+              examples:
+                Example 1:
+                  value:
+                    ref: string
+                    desc: string
+                    status_reason: string
+                    status: 0
+                    balance_current: 0
+                    balance_start: 0
+                    balance_buckets:
+                      - name: string
+                        balance_current: 0
+                        balance_start: 0
+                        type: interest
+                    agency:
+                      ref: string
+                      last_payment_amt: 0
+                      last_activity: string
+                      last_payment_date: string
+                    creditor:
+                      ref: string
+                      last_payment_amt: 0
+                      last_activity: string
+                      last_payment_date: string
+                      name: string
+                    type: medical
+                    interest_bearing: true
+      description: ''
+      parameters:
+        - schema:
+            type: string
+            format: date-time
+          in: query
+          name: last_updated
+          description: Return accounts that have been updated since the given datetime string
   '/consumer/{consumerRef}/optins':
     parameters:
       - schema:
@@ -485,7 +620,7 @@ paths:
                   email: true
                   push: true
                   esign: true
-                  default: string
+                  default: email
       description: Endpoint to receive updated consumer optins
   '/consumer/{consumerRef}/conversation':
     parameters:
@@ -596,40 +731,17 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                id:
-                  type: string
-                  description: Payment ID
-                amount:
-                  type: number
-                  description: Amount consumer paid
-                when:
-                  type: string
-                  description: When the consumer submitted payment
-                  format: date-time
-                consumer_ref:
-                  type: string
-                  description: Consumer reference
-                method:
-                  type: string
-                  enum:
-                    - bank
-                    - card
-                  description: Method of payment
-                status:
-                  type: integer
-                  description: '0=scheduled,1=pending,2=applied,3=refunded,4=returned,5=canceled'
-                scheduled:
-                  type: string
-                  description: When the payment is scheduled for if it's scheduled
-              required:
-                - id
-                - amount
-                - when
-                - consumer_ref
-                - method
-                - status
+              $ref: '#/components/schemas/Payment'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  amount: 0
+                  when: '2019-08-24T14:15:22Z'
+                  consumer_ref: string
+                  method: bank
+                  status: 0
+                  scheduled: '2019-08-24T14:15:22Z'
           application/xml:
             schema:
               type: object
@@ -651,6 +763,38 @@ paths:
           in: header
           name: Freede-Verification-Token
           description: Token Salt
+    get:
+      summary: Get Account Payments
+      operationId: get-account-accountNum-payment
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+        '401':
+          description: Unauthorized
+      security: []
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      description: Get account payments
   '/account/{accountNum}/payment/{paymentId}':
     parameters:
       - schema:
@@ -880,20 +1024,6 @@ components:
             name:
               type: string
               minLength: 1
-        consumer:
-          type: object
-          required:
-            - ref
-            - first
-            - last
-          properties:
-            ref:
-              type: string
-              minLength: 1
-            first:
-              type: string
-            last:
-              type: string
         type:
           type: string
           enum:
@@ -908,7 +1038,6 @@ components:
         - balance_start
         - agency
         - creditor
-        - consumer
         - type
         - interest_bearing
     Attorney:
@@ -1002,6 +1131,49 @@ components:
           zip: string
           email: string
           phone: string
+    GetConsumer:
+      type: object
+      x-examples:
+        example-1:
+          first: string
+          last: string
+          address: string
+          address2: string
+          city: string
+          state: string
+          zip: string
+          email: string
+          phone: string
+      x-stoplight:
+        id: be94b85ac0e64
+      title: GetConsumer
+      properties:
+        first:
+          type: string
+          minLength: 1
+        last:
+          type: string
+          minLength: 1
+        address:
+          type: string
+          minLength: 1
+        address2:
+          type: string
+          minLength: 1
+        city:
+          type: string
+          minLength: 1
+        state:
+          type: string
+          minLength: 1
+        zip:
+          type: string
+          minLength: 1
+        phone:
+          type: string
+          minLength: 1
+        optins:
+          $ref: '#/components/schemas/optins'
     Conversation:
       description: ''
       type: object
@@ -1138,3 +1310,157 @@ components:
             - phone
             - email
             - push
+    Payment:
+      type: object
+      x-examples:
+        Example 1:
+          id: string
+          amount: 0
+          when: '2019-08-24T14:15:22Z'
+          consumer_ref: string
+          method: bank
+          status: 0
+          scheduled: '2019-08-24T14:15:22Z'
+      properties:
+        id:
+          type: string
+        amount:
+          type: integer
+        when:
+          type: string
+          format: date-time
+          example: '2019-08-24T14:15:22Z'
+        consumer_ref:
+          type: string
+        method:
+          type: string
+          enum:
+            - bank
+            - card
+        status:
+          type: integer
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          description: '0=scheduled,1=pending,2=applied,3=refunded,4=returned,5=canceled'
+        scheduled:
+          type: string
+          format: date-time
+          example: '2019-08-24T14:15:22Z'
+      required:
+        - id
+        - amount
+        - when
+        - consumer_ref
+        - method
+        - status
+    ConsumerPaymentRequest:
+      type: object
+      x-examples:
+        Example 1:
+          id: string
+          amount: 0
+          when: '2019-08-24T14:15:22Z'
+          consumer_ref: string
+          method: bank
+          status: 0
+          scheduled: '2019-08-24T14:15:22Z'
+      properties:
+        id:
+          type: string
+          description: Freede Payment ID
+        amount:
+          type: integer
+        when:
+          type: string
+          format: date-time
+          example: '2019-08-24T14:15:22Z'
+        account_num:
+          type: string
+        method:
+          type: string
+          enum:
+            - bank
+            - card
+        status:
+          type: integer
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        scheduled:
+          type: string
+          format: date-time
+          example: '2019-08-24T14:15:22Z'
+      required:
+        - id
+        - amount
+        - when
+        - method
+        - status
+    ConsumerPayment:
+      type: object
+      x-examples:
+        Example 1:
+          id: string
+          amount: 0
+          when: '2019-08-24T14:15:22Z'
+          consumer_ref: string
+          method: bank
+          status: 0
+          scheduled: '2019-08-24T14:15:22Z'
+      properties:
+        id:
+          type: string
+          description: Freede Payment ID
+        ref_id:
+          type: string
+        amount:
+          type: integer
+        when:
+          type: string
+          format: date-time
+          example: '2019-08-24T14:15:22Z'
+        account_num:
+          type: string
+        method:
+          type: string
+          enum:
+            - bank
+            - card
+        status:
+          type: integer
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      required:
+        - ref_id
+        - amount
+        - when
+        - account_num
+        - method
+        - status
+    ConsumerRef:
+      title: ConsumerRef
+      x-stoplight:
+        id: nuwsp8cjocfvw
+      type: object
+      properties:
+        first:
+          type: string
+        last:
+          type: string
+        ref:
+          type: string
+  securitySchemes: {}
