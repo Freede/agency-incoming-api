@@ -523,6 +523,8 @@ paths:
                       push: true
                       esign: true
                       default: sms
+      tags:
+        - Consumers
   '/consumer/{consumerRef}/accounts':
     parameters:
       - schema:
@@ -575,6 +577,8 @@ paths:
           in: query
           name: last_updated
           description: Return accounts that have been updated since the given datetime string
+      tags:
+        - Consumers
   '/consumer/{consumerRef}/optins':
     parameters:
       - schema:
@@ -795,6 +799,8 @@ paths:
           name: Freede-Verification-Token
           description: Token Salt
       description: Get account payments
+      tags:
+        - Payments
   '/account/{accountNum}/payment/{paymentId}':
     parameters:
       - schema:
