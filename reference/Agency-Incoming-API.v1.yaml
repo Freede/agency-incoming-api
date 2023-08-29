@@ -299,7 +299,7 @@ paths:
         required: true
   '/consumer/{consumerRef}/payments':
     post:
-      summary: Consumer submitted form
+      summary: Consumer Payment
       operationId: post-consumer-payment
       parameters:
         - schema:
@@ -318,8 +318,6 @@ paths:
           name: Freede-Verification-Token
           description: Token Salt
       description: ''
-      tags:
-        - Consumers
       responses:
         '200':
           description: OK
@@ -339,6 +337,8 @@ paths:
                     scheduled: '2019-08-24T14:15:22Z'
         '401':
           description: Unauthorized
+      tags:
+        - Payments
     parameters:
       - schema:
           type: string
@@ -360,8 +360,6 @@ paths:
                   $ref: '#/components/schemas/ConsumerPayment'
         '401':
           description: Unauthorized
-      tags:
-        - Consumers
       parameters:
         - schema:
             type: string
@@ -379,6 +377,8 @@ paths:
           name: Freede-Verification-Token
           description: Token Salt
       description: Get payments on the consumer level
+      tags:
+        - Payments
   '/consumer/{consumerRef}':
     parameters:
       - schema:
