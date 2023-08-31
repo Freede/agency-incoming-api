@@ -321,24 +321,15 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConsumerPaymentRequest'
-              examples:
-                Example 1:
-                  value:
-                    id: string
-                    amount: 0
-                    when: '2019-08-24T14:15:22Z'
-                    account_num: string
-                    method: bank
-                    status: 0
-                    scheduled: '2019-08-24T14:15:22Z'
         '401':
           description: Unauthorized
       tags:
         - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsumerPaymentRequest'
     parameters:
       - schema:
           type: string
@@ -1362,11 +1353,15 @@ components:
             - 3
             - 4
             - 5
-          description: '0=scheduled,1=pending,2=applied,3=refunded,4=returned,5=canceled'
+          description: |-
+            0=scheduled,1=pending,2=applied,3=refunded,4=returned,5=canceled
+
+            Statuses 0 and 1 can only be set by Freede
         scheduled:
           type: string
           format: date-time
           example: '2019-08-24T14:15:22Z'
+          description: Scheduled can only be set by Freede on Freede initiated payments
       required:
         - id
         - amount
@@ -1458,6 +1453,7 @@ components:
             - 3
             - 4
             - 5
+          description: '2=applied,3=refunded,4=returned,5=canceled'
         account_num:
           type: string
       required:
