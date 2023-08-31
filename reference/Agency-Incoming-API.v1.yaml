@@ -376,6 +376,11 @@ paths:
           in: header
           name: Freede-Verification-Token
           description: Token Salt
+        - schema:
+            type: string
+          in: query
+          name: last_updated
+          description: Return payments that have been updated since the given datetime string
       description: Get payments on the consumer level
       tags:
         - Payments
@@ -798,6 +803,11 @@ paths:
           in: header
           name: Freede-Verification-Token
           description: Token Salt
+        - schema:
+            type: string
+          in: query
+          name: last_updated
+          description: Return payments that have been updated since the given datetime string
       description: Get account payments
       tags:
         - Payments
