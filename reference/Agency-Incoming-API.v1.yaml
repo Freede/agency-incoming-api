@@ -537,7 +537,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Account'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
               examples:
                 Example 1:
                   value:
