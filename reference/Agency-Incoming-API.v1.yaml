@@ -543,30 +543,30 @@ paths:
               examples:
                 Example 1:
                   value:
-                    ref: string
-                    desc: string
-                    status_reason: string
-                    status: 0
-                    balance_current: 0
-                    balance_start: 0
-                    balance_buckets:
-                      - name: string
-                        balance_current: 0
-                        balance_start: 0
-                        type: interest
-                    agency:
-                      ref: string
-                      last_payment_amt: 0
-                      last_activity: string
-                      last_payment_date: string
-                    creditor:
-                      ref: string
-                      last_payment_amt: 0
-                      last_activity: string
-                      last_payment_date: string
-                      name: string
-                    type: medical
-                    interest_bearing: true
+                    - ref: string
+                      desc: string
+                      status_reason: string
+                      status: 0
+                      balance_current: 0
+                      balance_start: 0
+                      balance_buckets:
+                        - name: string
+                          balance_current: 0
+                          balance_start: 0
+                          type: interest
+                      agency:
+                        ref: string
+                        last_payment_amt: 0
+                        last_activity: string
+                        last_payment_date: string
+                      creditor:
+                        ref: string
+                        last_payment_amt: 0
+                        last_activity: string
+                        last_payment_date: string
+                        name: string
+                      type: medical
+                      interest_bearing: true
       description: ''
       parameters:
         - schema:
