@@ -1038,6 +1038,10 @@ components:
             - student
         interest_bearing:
           type: boolean
+        convinence_fee:
+          type: number
+          x-stoplight:
+            id: sag9i4bpzl4j3
       required:
         - ref
         - status
