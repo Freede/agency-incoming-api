@@ -628,9 +628,15 @@ paths:
                   x-stoplight:
                     id: z3h3j65ozyd4h
                   description: ISO2 State Code
+                account_ref:
+                  type: string
+                  x-stoplight:
+                    id: pn10b1y7e22mg
               required:
                 - method
+                - amount
                 - billing_state
+                - account_ref
       tags:
         - Consumers
   '/consumer/{consumerRef}/optins':
