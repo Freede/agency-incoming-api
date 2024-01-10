@@ -575,6 +575,64 @@ paths:
           description: Return accounts that have been updated since the given datetime string
       tags:
         - Consumers
+  '/consumer/{consumerRef}/convenience_fee/lookup':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+    post:
+      summary: Consumer Convenience Fee Lookup
+      operationId: post-consumer-consumerRef-account-accountNum-convenience_fee-lookup
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fee:
+                    type: number
+                    x-stoplight:
+                      id: 501ncxgfplk6n
+                    minimum: 0
+                required:
+                  - fee
+        '401':
+          description: Unauthorized
+      description: Allows for the lookup of the convenience fee for a consumer account payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method:
+                  type: string
+                  x-stoplight:
+                    id: fsgmqv0o9ka4c
+                  enum:
+                    - card
+                    - bank
+                  description: Payment method type
+                amount:
+                  type: number
+                  x-stoplight:
+                    id: i71ihy1mhbgre
+                  minimum: 0
+                  description: Amount of payment
+                billing_state:
+                  type: string
+                  x-stoplight:
+                    id: z3h3j65ozyd4h
+                  description: ISO2 State Code
+              required:
+                - method
+                - billing_state
+      tags:
+        - Consumers
   '/consumer/{consumerRef}/optins':
     parameters:
       - schema:
@@ -1038,10 +1096,6 @@ components:
             - student
         interest_bearing:
           type: boolean
-        convenience_fee:
-          type: number
-          x-stoplight:
-            id: sag9i4bpzl4j3
       required:
         - ref
         - status
