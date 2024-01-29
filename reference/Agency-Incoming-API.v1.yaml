@@ -1054,6 +1054,11 @@ components:
                   - principal
                   - fees
                   - other
+              accruing:
+                type: boolean
+                x-stoplight:
+                  id: it121m8virgc6
+                description: If the bucket is an accruing bucket
             required:
               - name
               - balance_current
@@ -1075,6 +1080,10 @@ components:
             last_payment_date:
               type: string
               minLength: 1
+            placement_date:
+              type: string
+              x-stoplight:
+                id: jb3fad44txafm
         creditor:
           type: object
           required:
@@ -1092,6 +1101,10 @@ components:
             last_payment_date:
               type: string
               minLength: 1
+            delinquency_date:
+              type: string
+              x-stoplight:
+                id: uw1mys7v3lev7
             name:
               type: string
               minLength: 1
@@ -1102,6 +1115,25 @@ components:
             - student
         interest_bearing:
           type: boolean
+        statute_date:
+          type: string
+          x-stoplight:
+            id: j47o6aebvt7j0
+          description: Date account out of statute of limitations
+        notice_date:
+          type: string
+          x-stoplight:
+            id: k2x495ykhm2n8
+          description: Date notice was provided
+        flags:
+          type: array
+          x-stoplight:
+            id: 25g8yi458axm4
+          description: 'Any account flags: repossession, disablement, credit_reporting'
+          items:
+            x-stoplight:
+              id: qbe9ssln42ffx
+            type: string
       required:
         - ref
         - status
