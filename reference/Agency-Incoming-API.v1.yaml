@@ -1245,6 +1245,11 @@ components:
           minLength: 1
         optins:
           $ref: '#/components/schemas/optins'
+        email:
+          type: string
+          x-stoplight:
+            id: fcz7m35bbpz1f
+          description: Email will not override the email on file if one exists. To be used in situations where Freede does not already have an email for a consumer.
     Conversation:
       description: ''
       type: object
