@@ -774,6 +774,50 @@ paths:
                   status: closed
       tags:
         - Consumers
+  '/consumer/{consumerRef}/conversation/{conversationId}/event':
+    parameters:
+      - schema:
+          type: string
+        name: consumerRef
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: conversationId
+        in: path
+        required: true
+    post:
+      summary: Send consumer conversation event
+      operationId: post-consumer-conversation-event
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                when:
+                  type: string
+                  x-stoplight:
+                    id: nhlqrc6xyx1kj
+                  format: date-time
+                event:
+                  type: string
+                  x-stoplight:
+                    id: lua3hxrrgzp0b
+                  description: What conversation event took place
+                metadata:
+                  type: object
+                  x-stoplight:
+                    id: vm2ac2bhil0y4
+                  description: Any details provided with the event
+              required:
+                - when
+                - event
   '/account/{accountNum}/payment':
     parameters:
       - schema:
