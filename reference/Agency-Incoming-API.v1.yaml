@@ -1329,8 +1329,13 @@ components:
             id: fcz7m35bbpz1f
           description: Email will not override the email on file if one exists. To be used in situations where Freede does not already have an email for a consumer.
     Conversation:
-      description: ''
       type: object
+      x-examples:
+        Chat Example:
+          type: chat
+          when: '2019-08-24T14:15:22Z'
+          id: 5fa4c5a7bdb82a9e6e0a9ae9
+          status: open
       properties:
         type:
           type: string
@@ -1340,6 +1345,7 @@ components:
             - email
             - chat
             - phone
+            - knute
           description: Conversation channel type
         when:
           type: string
@@ -1361,12 +1367,6 @@ components:
         - when
         - id
         - status
-      x-examples:
-        Chat Example:
-          type: chat
-          when: '2019-08-24T14:15:22Z'
-          id: 5fa4c5a7bdb82a9e6e0a9ae9
-          status: open
     DisputeForm:
       title: DisputeForm
       type: object
