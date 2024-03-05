@@ -1159,6 +1159,7 @@ components:
           enum:
             - medical
             - student
+            - other
         interest_bearing:
           type: boolean
         statute_date:
