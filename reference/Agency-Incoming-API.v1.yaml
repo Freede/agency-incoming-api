@@ -166,6 +166,79 @@ paths:
                     push: true
                     default: email
         description: Consumer registration information
+  /registration - copy:
+    post:
+      summary: Auth consumer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  first:
+                    type: string
+                    x-stoplight:
+                      id: uo9tcxwx9pcv7
+                  last:
+                    type: string
+                    x-stoplight:
+                      id: ub0k38hs1f73n
+                  consumer_ref:
+                    type: string
+                    x-stoplight:
+                      id: ehbwp6nfmbbiq
+        '401':
+          description: Unauthorized
+      operationId: post-registration
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Key
+          description: SHA256 Hash of Token and API key
+        - schema:
+            type: string
+          in: header
+          name: Freede-API-Version
+          description: Freede Agency Incoming API Version
+        - schema:
+            type: string
+          in: header
+          name: Freede-Verification-Token
+          description: Token Salt
+      description: 'Freede will submit this POST request when a consumer is attempting to authenticate outside of a normal registration, such as with Knute.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              description: Object fields will be defined by your configured authentication form.
+            examples:
+              example-1:
+                value:
+                  first: string
+                  last: string
+                  address: string
+                  address2: string
+                  city: string
+                  state: string
+                  zip: string
+                  phone: string
+                  email: user@example.com
+                  regcode: string
+                  verify: true
+                  optins:
+                    sms: true
+                    phone: true
+                    email: true
+                    push: true
+                    default: email
+        description: Consumer authentication information
+      tags:
+        - Auth
   '/account/{accountNum}':
     get:
       summary: Get account details
