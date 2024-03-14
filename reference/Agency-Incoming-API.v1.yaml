@@ -166,7 +166,7 @@ paths:
                     push: true
                     default: email
         description: Consumer registration information
-  /registration - copy:
+  /auth:
     post:
       summary: Auth consumer
       responses:
@@ -191,7 +191,7 @@ paths:
                       id: ehbwp6nfmbbiq
         '401':
           description: Unauthorized
-      operationId: post-registration
+      operationId: auth
       parameters:
         - schema:
             type: string
@@ -239,6 +239,7 @@ paths:
         description: Consumer authentication information
       tags:
         - Auth
+    parameters: []
   '/account/{accountNum}':
     get:
       summary: Get account details
