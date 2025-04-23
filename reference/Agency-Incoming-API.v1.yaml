@@ -25,7 +25,10 @@ paths:
         '401':
           description: Unauthorized
       operationId: post-intent-communication
-      description: ''
+      description: |-
+        Agency confirmation of intent to communicate with consumer. 
+
+        Example: Freede will make this call to the agency when the Freede Score triggers a recommendation for the agency to communicate with the consumer via the Freede Platform. 
       requestBody:
         content:
           application/json:
@@ -110,7 +113,7 @@ paths:
           in: header
           name: Freede-Verification-Token
           description: Token Salt
-      description: Freede will submit this POST request when a consumer is attempting to register with the agency. Agency may perform their own validation checks and return a response.
+      description: Freede will submit this POST request when a consumer is attempting to register with the agency. Agency may perform their own validation checks and return a response. The Verify bool is provided as an indication if this is a check only or if agency should mark them as registered.
       requestBody:
         content:
           application/json:
@@ -341,7 +344,10 @@ paths:
                         type: string
                         enum:
                           - proof_of_debt
-      description: Endpoint to receive forms consumer has submitted
+      description: |-
+        This is the endpoint used by agencies to receive forms the consumer has submitted. Examples are for notification of dispute, attorney handling, and/or bankruptcy.
+
+        For certain scenarios, the agency should update the account status using the Update Consumer Account API call.
       tags:
         - Consumers
     parameters:
@@ -518,7 +524,7 @@ paths:
                   zip: string
                   email: string
                   phone: '12223334444'
-      description: Endpoint to receive updated consumer demographics.
+      description: 'Endpoint to receive updated consumer demographics. When the consumer updates their demographic fields in the Freede Platform, this API call will be used to provide these updates to the agency. The agency can then update their system of record.'
     delete:
       summary: Deregister consumer
       operationId: delete-consumer-consumerRef
@@ -541,7 +547,9 @@ paths:
       responses:
         '200':
           description: OK
-      description: Endpoint to deregister consumer from Freede
+      description: |-
+        Freede will use this API call to notify the agency of a consumer that has been deregistered from the Freede Platform.
+        Used to update the agency system of record and resume alternative collection tactics, if appropriate.
       tags:
         - Consumers
     get:
@@ -909,7 +917,10 @@ paths:
             schema:
               type: object
               properties: {}
-      description: Consumer has sent a payment for an account
+      description: |-
+        This endpoint is used to notify the agency of a consumer’s current and future-scheduled payments remitted via the Freede Platform.
+
+        Used to update the agency system of record and to comply with FDCPA regulations and state law related to post dated payment instruments.
       parameters:
         - schema:
             type: string
@@ -1003,7 +1014,10 @@ paths:
           in: header
           name: Freede-Verification-Token
           description: Token Salt
-      description: Endpoint to update the payment status
+      description: |-
+        This endpoint is used to notify the agency of modifications made to payments previously reported in the Account Payment API call.
+
+        Used to update the agency system of record and to comply with FDCPA regulations and state law related to post dated payment instruments.
       requestBody:
         content:
           application/json:
@@ -1075,7 +1089,7 @@ paths:
           in: header
           name: Freede-Verification-Token
           description: Token Salt
-      description: Submit account settlement offer
+      description: 'When an agency chooses to accept settlement offers from a consumer that can not be immediately approve or declined based on a previously-established ruleset, this API call will be used to notify the agency of a settlement offer from the consumer requiring review and consideration for approval.'
       requestBody:
         content:
           application/json:
